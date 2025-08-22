@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de YouTube con Memoria</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #fdbb2d;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #fdbb2d;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .player-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .playlist-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fdbb2d;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #444;
+        }
+        
+        #video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background: #000;
+        }
+        
+        #video-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .add-video-form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        #video-url {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+            background: #333;
+            color: white;
+        }
+        
+        #add-video-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            background: #fdbb2d;
+            color: #1a2a6c;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        #add-video-btn:hover {
+            background: #ffa500;
+        }
+        
+        #playlist {
+            list-style: none;
+            max-height: 400px;
+            overflow-y: auto;
+            background: rgba(50, 50, 50, 0.6);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        .playlist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .playlist-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .playlist-item.active {
+            background: rgba(253, 187, 45, 0.3);
+            border-left: 4px solid #fdbb2d;
+        }
+        
+        .video-title {
+            flex: 1;
+            margin-right: 15px;
+            font-size: 0.95rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .playlist-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            background: none;
+            border: none;
+            color: #fdbb2d;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .control-btn:hover {
+            color: #fff;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        
+        .player-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #1a2a6c;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .player-btn:hover {
+            background: #2a3a8c;
+        }
+        
+        .player-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        
+        .empty-playlist {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-style: italic;
+        }
+        
+        .memory-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .memory-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background: #6c1a5c;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .memory-btn:hover {
+            background: #8c3a7c;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reproductor de YouTube con Memoria</h1>
+            <p class="description">Agrega videos de YouTube y crea listas de reproducción que se guardan localmente</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="player-section">
+                <h2 class="section-title">Reproductor</h2>
+                <div id="video-container">
+                    <iframe id="video-player" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                
+                <div class="player-controls">
+                    <button id="prev-btn" class="player-btn" disabled>Anterior</button>
+                    <button id="next-btn" class="player-btn" disabled>Siguiente</button>
+                </div>
+                
+                <div class="memory-buttons">
+                    <button id="save-btn" class="memory-btn">Guardar Lista</button>
+                    <button id="clear-btn" class="memory-btn">Limpiar Lista</button>
+                </div>
+            </div>
+            
+            <div class="playlist-section">
+                <h2 class="section-title">Lista de Reproducción</h2>
+                
+                <div class="add-video-form">
+                    <input type="text" id="video-url" placeholder="Pega el enlace de YouTube aquí...">
+                    <button id="add-video-btn">Agregar</button>
+                </div>
+                
+                <ul id="playlist">
+                    <li class="empty-playlist">La lista de reproducción está vacía. Agrega algunos videos!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del DOM
+            const videoPlayer = document.getElementById('video-player');
+            const videoUrlInput = document.getElementById('video-url');
+            const addVideoBtn = document.getElementById('add-video-btn');
+            const playlistElement = document.getElementById('playlist');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const saveBtn = document.getElementById('save-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            
+            // Variables de estado
+            let playlist = [];
+            let currentVideoIndex = -1;
+            
+            // Cargar lista desde localStorage al iniciar
+            loadPlaylist();
+            
+            // Event Listeners
+            addVideoBtn.addEventListener('click', addVideoFromInput);
+            videoUrlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addVideoFromInput();
+                }
+            });
+            
+            prevBtn.addEventListener('click', playPreviousVideo);
+            nextBtn.addEventListener('click', playNextVideo);
+            saveBtn.addEventListener('click', savePlaylistToStorage);
+            clearBtn.addEventListener('click', clearPlaylist);
+            
+            // Función para agregar video desde el input
+            function addVideoFromInput() {
+                const url = videoUrlInput.value.trim();
+                if (!url) return;
+                
+                const videoId = extractYouTubeId(url);
+                if (!videoId) {
+                    alert('Por favor, ingresa un enlace válido de YouTube');
+                    return;
+                }
+                
+                // Obtener título del video (simulado para este ejemplo)
+                const title = `Video de YouTube (${videoId})`;
+                
+                // En una aplicación real, podrías usar la API de YouTube para obtener el título real
+                addVideoToPlaylist(videoId, title);
+                
+                // Limpiar el input
+                videoUrlInput.value = '';
+            }
+            
+            // Función para extraer el ID de un URL de YouTube
+            function extractYouTubeId(url) {
+                const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[7].length === 11) ? match[7] : null;
+            }
+            
+            // Función para agregar video a la lista de reproducción
+            function addVideoToPlaylist(videoId, title) {
+                playlist.push({ videoId, title });
+                renderPlaylist();
+                
+                // Si es el primer video, reproducirlo
+                if (playlist.length === 1) {
+                    currentVideoIndex = 0;
+                    playVideo(currentVideoIndex);
+                }
+                
+                updateControlButtons();
+            }
+            
+            // Función para reproducir un video
+            function playVideo(index) {
+                if (index < 0 || index >= playlist.length) return;
+                
+                currentVideoIndex = index;
+                const videoId = playlist[index].videoId;
+                videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                
+                // Actualizar la lista para resaltar el video actual
+                renderPlaylist();
+                updateControlButtons();
+            }
+            
+            // Función para reproducir el video anterior
+            function playPreviousVideo() {
+                if (currentVideoIndex <= 0) return;
+                playVideo(currentVideoIndex - 1);
+            }
+            
+            // Función para reproducir el siguiente video
+            function playNextVideo() {
+                if (currentVideoIndex >= playlist.length - 1) return;
+                playVideo(currentVideoIndex + 1);
+            }
+            
+            // Función para renderizar la lista de reproducción
+            function renderPlaylist() {
+                // Limpiar la lista
+                playlistElement.innerHTML = '';
+                
+                if (playlist.length === 0) {
+                    playlistElement.innerHTML = '<li class="empty-playlist">La lista de reproducción está vacía. Agrega algunos videos!</li>';
+                    return;
+                }
+                
+                // Agregar cada video a la lista
+                playlist.forEach((video, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'playlist-item';
+                    if (index === currentVideoIndex) {
+                        li.classList.add('active');
+                    }
+                    
+                    li.innerHTML = `
+                        <span class="video-title">${video.title}</span>
+                        <div class="playlist-controls">
+                            <button class="control-btn play-btn" data-index="${index}">▶</button>
+                            <button class="control-btn delete-btn" data-index="${index}">✕</button>
+                        </div>
+                    `;
+                    
+                    playlistElement.appendChild(li);
+                });
+                
+                // Agregar event listeners a los botones de la lista
+                document.querySelectorAll('.play-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        playVideo(index);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        deleteVideo(index);
+                    });
+                });
+            }
+            
+            // Función para eliminar un video de la lista
+            function deleteVideo(index) {
+                playlist.splice(index, 1);
+                
+                // Ajustar el índice actual si es necesario
+                if (currentVideoIndex >= index) {
+                    currentVideoIndex--;
+                }
+                
+                // Si eliminamos el video actual, reproducir el siguiente o detener
+                if (index === currentVideoIndex) {
+                    if (playlist.length > 0) {
+                        playVideo(Math.min(currentVideoIndex, playlist.length - 1));
+                    } else {
+                        currentVideoIndex = -1;
+                        videoPlayer.src = '';
+                    }
+                }
+                
+                renderPlaylist();
+                updateControlButtons();
+            }
+            
+            // Función para actualizar el estado de los botones de control
+            function updateControlButtons() {
+                prevBtn.disabled = currentVideoIndex <= 0;
+                nextBtn.disabled = currentVideoIndex >= playlist.length - 1;
+            }
+            
+            // Función para guardar la lista en localStorage
+            function savePlaylistToStorage() {
+                localStorage.setItem('youtubePlaylist', JSON.stringify(playlist));
+                alert('Lista guardada correctamente!');
+            }
+            
+            // Función para cargar la lista desde localStorage
+            function loadPlaylist() {
+                const savedPlaylist = localStorage.getItem('youtubePlaylist');
+                if (savedPlaylist) {
+                    playlist = JSON.parse(savedPlaylist);
+                    renderPlaylist();
+                    updateControlButtons();
+                }
+            }
+            
+            // Función para limpiar la lista
+            function clearPlaylist() {
+                if (confirm('¿Estás seguro de que quieres limpiar la lista de reproducción?')) {
+                    playlist = [];
+                    currentVideoIndex = -1;
+                    videoPlayer.src = '';
+                    renderPlaylist();
+                    updateControlButtons();
+                    localStorage.removeItem('youtubePlaylist');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
