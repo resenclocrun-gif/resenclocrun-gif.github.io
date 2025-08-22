@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor de YouTube con Memoria</title>
+    <title>Reproductor YouTube con Memoria Local</title>
     <style>
         * {
             box-sizing: border-box;
@@ -233,6 +233,26 @@
             background: #8c3a7c;
         }
         
+        .status-message {
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .status-message.success {
+            background: rgba(46, 160, 67, 0.2);
+            color: #3fb950;
+            display: block;
+        }
+        
+        .status-message.error {
+            background: rgba(248, 81, 73, 0.2);
+            color: #f85149;
+            display: block;
+        }
+        
         @media (max-width: 768px) {
             .main-content {
                 flex-direction: column;
@@ -243,9 +263,11 @@
 <body>
     <div class="container">
         <header>
-            <h1>Reproductor de YouTube con Memoria</h1>
+            <h1>Reproductor de YouTube con Memoria Local</h1>
             <p class="description">Agrega videos de YouTube y crea listas de reproducción que se guardan localmente</p>
         </header>
+        
+        <div id="status-message" class="status-message"></div>
         
         <div class="main-content">
             <div class="player-section">
@@ -291,6 +313,7 @@
             const nextBtn = document.getElementById('next-btn');
             const saveBtn = document.getElementById('save-btn');
             const clearBtn = document.getElementById('clear-btn');
+            const statusMessage = document.getElementById('status-message');
             
             // Variables de estado
             let playlist = [];
@@ -312,14 +335,28 @@
             saveBtn.addEventListener('click', savePlaylistToStorage);
             clearBtn.addEventListener('click', clearPlaylist);
             
+            // Función para mostrar mensajes de estado
+            function showStatusMessage(message, type) {
+                statusMessage.textContent = message;
+                statusMessage.className = 'status-message ' + type;
+                
+                // Ocultar mensaje después de 3 segundos
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                }, 3000);
+            }
+            
             // Función para agregar video desde el input
             function addVideoFromInput() {
                 const url = videoUrlInput.value.trim();
-                if (!url) return;
+                if (!url) {
+                    showStatusMessage('Por favor, ingresa un enlace de YouTube', 'error');
+                    return;
+                }
                 
                 const videoId = extractYouTubeId(url);
                 if (!videoId) {
-                    alert('Por favor, ingresa un enlace válido de YouTube');
+                    showStatusMessage('Por favor, ingresa un enlace válido de YouTube', 'error');
                     return;
                 }
                 
@@ -331,6 +368,8 @@
                 
                 // Limpiar el input
                 videoUrlInput.value = '';
+                
+                showStatusMessage('Video agregado correctamente', 'success');
             }
             
             // Función para extraer el ID de un URL de YouTube
@@ -445,6 +484,7 @@
                 
                 renderPlaylist();
                 updateControlButtons();
+                showStatusMessage('Video eliminado de la lista', 'success');
             }
             
             // Función para actualizar el estado de los botones de control
@@ -455,17 +495,33 @@
             
             // Función para guardar la lista en localStorage
             function savePlaylistToStorage() {
-                localStorage.setItem('youtubePlaylist', JSON.stringify(playlist));
-                alert('Lista guardada correctamente!');
+                try {
+                    localStorage.setItem('youtubePlaylist', JSON.stringify(playlist));
+                    showStatusMessage('Lista guardada correctamente en el almacenamiento local', 'success');
+                } catch (e) {
+                    showStatusMessage('Error al guardar la lista: ' + e.message, 'error');
+                }
             }
             
             // Función para cargar la lista desde localStorage
             function loadPlaylist() {
-                const savedPlaylist = localStorage.getItem('youtubePlaylist');
-                if (savedPlaylist) {
-                    playlist = JSON.parse(savedPlaylist);
-                    renderPlaylist();
-                    updateControlButtons();
+                try {
+                    const savedPlaylist = localStorage.getItem('youtubePlaylist');
+                    if (savedPlaylist) {
+                        playlist = JSON.parse(savedPlaylist);
+                        renderPlaylist();
+                        updateControlButtons();
+                        
+                        // Reproducir el último video visto si existe
+                        if (playlist.length > 0) {
+                            const lastVideoIndex = localStorage.getItem('lastVideoIndex');
+                            if (lastVideoIndex !== null) {
+                                playVideo(parseInt(lastVideoIndex));
+                            }
+                        }
+                    }
+                } catch (e) {
+                    showStatusMessage('Error al cargar la lista: ' + e.message, 'error');
                 }
             }
             
@@ -477,9 +533,23 @@
                     videoPlayer.src = '';
                     renderPlaylist();
                     updateControlButtons();
-                    localStorage.removeItem('youtubePlaylist');
+                    
+                    try {
+                        localStorage.removeItem('youtubePlaylist');
+                        localStorage.removeItem('lastVideoIndex');
+                        showStatusMessage('Lista limpiada correctamente', 'success');
+                    } catch (e) {
+                        showStatusMessage('Error al limpiar la lista: ' + e.message, 'error');
+                    }
                 }
             }
+            
+            // Guardar el índice del video actual antes de cerrar la página
+            window.addEventListener('beforeunload', function() {
+                if (currentVideoIndex >= 0) {
+                    localStorage.setItem('lastVideoIndex', currentVideoIndex);
+                }
+            });
         });
     </script>
 </body>
