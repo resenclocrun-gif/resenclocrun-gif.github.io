@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeoTube Player</title>
+    <title>JW Player - Con Nombres y Comentarios</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #ff375f;
-            --secondary: #6e45e2;
-            --dark: #0f0f0f;
+            --primary: #5c8fc2;
+            --secondary: #3a6ea5;
+            --dark: #1a2a3a;
             --light: #ffffff;
-            --gray: #272727;
-            --light-gray: #aaaaaa;
+            --gray: #2c3e50;
+            --light-gray: #bdc3c7;
         }
         
         * {
@@ -23,7 +23,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            background: linear-gradient(135deg, var(--dark), #2c3e50);
             color: var(--light);
             min-height: 100vh;
             padding: 0;
@@ -40,7 +40,7 @@
         }
         
         header {
-            background: rgba(15, 15, 15, 0.8);
+            background: rgba(26, 42, 58, 0.9);
             backdrop-filter: blur(10px);
             padding: 20px;
             display: flex;
@@ -63,7 +63,7 @@
         }
         
         .player-section {
-            background: rgba(20, 20, 20, 0.7);
+            background: rgba(30, 40, 50, 0.8);
             border-radius: 16px;
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -72,7 +72,7 @@
         }
         
         .playlist-section {
-            background: rgba(20, 20, 20, 0.7);
+            background: rgba(30, 40, 50, 0.8);
             border-radius: 16px;
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -100,7 +100,7 @@
             color: var(--primary);
         }
         
-        #video-container {
+        .video-placeholder {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
@@ -109,16 +109,27 @@
             margin-bottom: 20px;
             background: #000;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://assetsnffrgf-a.akamaihd.net/assets/m/502014100/univ/art/502014100_univ_sqr_xl.jpg');
+            background-size: cover;
+            background-position: center;
         }
         
-        #video-player {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 12px;
+        .play-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .play-icon:hover {
+            transform: scale(1.1);
+            color: var(--secondary);
         }
         
         .video-info {
@@ -134,6 +145,15 @@
         .video-info p {
             color: var(--light-gray);
             font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .video-comment {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(44, 62, 80, 0.4);
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
         }
         
         .player-controls {
@@ -141,7 +161,7 @@
             justify-content: space-between;
             margin-top: 20px;
             padding: 15px;
-            background: rgba(39, 39, 39, 0.5);
+            background: rgba(44, 62, 80, 0.6);
             border-radius: 12px;
         }
         
@@ -161,7 +181,7 @@
         
         .player-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 55, 95, 0.4);
+            box-shadow: 0 5px 15px rgba(92, 143, 194, 0.4);
         }
         
         .player-btn:disabled {
@@ -174,17 +194,17 @@
         
         .add-video-form {
             display: flex;
+            flex-direction: column;
             margin-bottom: 20px;
             gap: 10px;
         }
         
         #video-url {
-            flex: 1;
             padding: 15px;
             border: none;
             border-radius: 8px;
             font-size: 1rem;
-            background: rgba(39, 39, 39, 0.7);
+            background: rgba(44, 62, 80, 0.7);
             color: white;
             border: 1px solid var(--gray);
         }
@@ -194,8 +214,36 @@
             border-color: var(--primary);
         }
         
+        #video-name {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(44, 62, 80, 0.7);
+            color: white;
+            border: 1px solid var(--gray);
+        }
+        
+        #video-comment {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(44, 62, 80, 0.7);
+            color: white;
+            border: 1px solid var(--gray);
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+        
+        #video-name:focus, #video-comment:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
         #add-video-btn {
-            padding: 15px 20px;
+            padding: 15px;
             border: none;
             border-radius: 8px;
             background: linear-gradient(to right, var(--primary), var(--secondary));
@@ -203,11 +251,15 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         #add-video-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 55, 95, 0.4);
+            box-shadow: 0 5px 15px rgba(92, 143, 194, 0.4);
         }
         
         #playlist {
@@ -223,7 +275,7 @@
         }
         
         #playlist::-webkit-scrollbar-track {
-            background: rgba(39, 39, 39, 0.5);
+            background: rgba(44, 62, 80, 0.5);
             border-radius: 3px;
         }
         
@@ -238,19 +290,19 @@
             align-items: center;
             padding: 15px;
             margin-bottom: 10px;
-            background: rgba(39, 39, 39, 0.5);
+            background: rgba(44, 62, 80, 0.6);
             border-radius: 10px;
             transition: all 0.3s;
             border-left: 3px solid transparent;
         }
         
         .playlist-item:hover {
-            background: rgba(39, 39, 39, 0.8);
+            background: rgba(44, 62, 80, 0.8);
             transform: translateX(5px);
         }
         
         .playlist-item.active {
-            background: rgba(110, 69, 226, 0.2);
+            background: rgba(58, 110, 165, 0.3);
             border-left: 3px solid var(--secondary);
         }
         
@@ -263,6 +315,16 @@
             font-size: 0.95rem;
             margin-bottom: 5px;
             color: var(--light);
+        }
+        
+        .video-comment-small {
+            font-size: 0.8rem;
+            color: var(--light-gray);
+            font-style: italic;
+            margin-top: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         
         .video-id {
@@ -300,7 +362,7 @@
         }
         
         .delete-btn:hover {
-            color: #ff375f;
+            color: #e74c3c;
         }
         
         .empty-playlist {
@@ -327,7 +389,7 @@
             padding: 12px;
             border: none;
             border-radius: 8px;
-            background: rgba(39, 39, 39, 0.7);
+            background: rgba(44, 62, 80, 0.7);
             color: white;
             font-weight: bold;
             cursor: pointer;
@@ -339,16 +401,16 @@
         }
         
         .memory-btn:hover {
-            background: rgba(39, 39, 39, 0.9);
+            background: rgba(44, 62, 80, 0.9);
             transform: translateY(-2px);
         }
         
         #save-btn {
-            background: linear-gradient(to right, #00c6ff, #0072ff);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
         }
         
         #clear-btn {
-            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            background: linear-gradient(to right, #e74c3c, #c0392b);
         }
         
         .status-message {
@@ -380,13 +442,122 @@
             gap: 10px;
             margin-top: 10px;
             padding: 10px;
-            background: rgba(39, 39, 39, 0.5);
+            background: rgba(44, 62, 80, 0.6);
             border-radius: 8px;
             font-size: 0.9rem;
         }
         
         .now-playing i {
             color: var(--primary);
+        }
+        
+        .instructions {
+            background: rgba(44, 62, 80, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .instructions h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+            color: var(--light-gray);
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--dark);
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--gray);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .modal-title {
+            font-size: 1.4rem;
+            color: var(--light);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .close-modal:hover {
+            color: var(--light);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light);
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .modal-btn.cancel {
+            background: var(--gray);
+            color: var(--light);
+        }
+        
+        .modal-btn.confirm {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
         }
         
         @media (max-width: 1100px) {
@@ -410,21 +581,43 @@
                 justify-content: center;
             }
             
-            .add-video-form {
-                flex-direction: column;
-            }
-            
             .memory-buttons {
                 grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="modal" id="video-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Agregar Video</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="modal-video-name">Nombre del Video:</label>
+                <input type="text" id="modal-video-name" placeholder="Ingresa un nombre para el video">
+            </div>
+            <div class="form-group">
+                <label for="modal-video-comment">Comentario (opcional):</label>
+                <textarea id="modal-video-comment" placeholder="Agrega un comentario sobre este video"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" id="cancel-modal">Cancelar</button>
+                <button class="modal-btn confirm" id="confirm-modal">Agregar Video</button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="logo">
             <i class="fas fa-play-circle"></i>
-            <span>NeoTube Player</span>
+            <span>JW Player</span>
         </div>
     </header>
 
@@ -435,13 +628,18 @@
                 Reproductor
             </h2>
             
-            <div id="video-container">
-                <iframe id="video-player" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-placeholder" id="video-placeholder">
+                <i class="fas fa-play-circle play-icon" id="play-button"></i>
+                <h3 id="placeholder-text">Haz clic para reproducir el video</h3>
+                <p>El video se abrirá en una nueva pestaña</p>
             </div>
             
             <div class="video-info">
                 <h3 id="video-title">Selecciona un video de la lista</h3>
                 <p id="video-description">Los videos que agregues aparecerán aquí</p>
+                <div class="video-comment" id="video-comment-display" style="display: none;">
+                    <strong>Comentario:</strong> <span id="comment-text"></span>
+                </div>
             </div>
             
             <div class="player-controls">
@@ -468,9 +666,9 @@
             </h2>
             
             <div class="add-video-form">
-                <input type="text" id="video-url" placeholder="Pega el enlace de YouTube aquí...">
+                <input type="text" id="video-url" placeholder="Pega el enlace de JW.org aquí..." value="https://www.jw.org/finder?srcid=jwlshare&wtlocale=S&lank=pub-jwb-125_4_VIDEO">
                 <button id="add-video-btn">
-                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-plus"></i> Agregar Video
                 </button>
             </div>
             
@@ -478,7 +676,7 @@
             
             <ul id="playlist">
                 <li class="empty-playlist">
-                    <i class="fas fa-music"></i>
+                    <i class="fas fa-film"></i>
                     <p>La lista de reproducción está vacía</p>
                     <p>Agrega algunos videos para comenzar</p>
                 </li>
@@ -494,13 +692,26 @@
                     Limpiar Lista
                 </button>
             </div>
+            
+            <div class="instructions">
+                <h4><i class="fas fa-info-circle"></i> Cómo usar este reproductor:</h4>
+                <ul>
+                    <li>Busca videos en <a href="https://www.jw.org" style="color:var(--primary);" target="_blank">JW.org</a></li>
+                    <li>Copia la URL del video y pégala arriba</li>
+                    <li>Se te pedirá que nombres el video y agregues un comentario</li>
+                    <li>Haz clic en el botón de reproducción para abrir el video</li>
+                    <li>Los videos se guardarán localmente en tu navegador</li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Elementos del DOM
-            const videoPlayer = document.getElementById('video-player');
+            const videoPlaceholder = document.getElementById('video-placeholder');
+            const playButton = document.getElementById('play-button');
+            const placeholderText = document.getElementById('placeholder-text');
             const videoUrlInput = document.getElementById('video-url');
             const addVideoBtn = document.getElementById('add-video-btn');
             const playlistElement = document.getElementById('playlist');
@@ -512,26 +723,95 @@
             const videoTitle = document.getElementById('video-title');
             const videoDescription = document.getElementById('video-description');
             const nowPlayingText = document.getElementById('now-playing-text');
+            const commentDisplay = document.getElementById('video-comment-display');
+            const commentText = document.getElementById('comment-text');
+            
+            // Elementos del modal
+            const videoModal = document.getElementById('video-modal');
+            const modalVideoName = document.getElementById('modal-video-name');
+            const modalVideoComment = document.getElementById('modal-video-comment');
+            const closeModal = document.getElementById('close-modal');
+            const cancelModal = document.getElementById('cancel-modal');
+            const confirmModal = document.getElementById('confirm-modal');
             
             // Variables de estado
             let playlist = [];
             let currentVideoIndex = -1;
+            let currentVideoUrl = "";
+            let pendingVideoUrl = "";
             
             // Cargar lista desde localStorage al iniciar
             loadPlaylist();
             
             // Event Listeners
-            addVideoBtn.addEventListener('click', addVideoFromInput);
+            addVideoBtn.addEventListener('click', prepareAddVideo);
             videoUrlInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
-                    addVideoFromInput();
+                    prepareAddVideo();
                 }
             });
+            
+            playButton.addEventListener('click', openCurrentVideo);
+            videoPlaceholder.addEventListener('click', openCurrentVideo);
             
             prevBtn.addEventListener('click', playPreviousVideo);
             nextBtn.addEventListener('click', playNextVideo);
             saveBtn.addEventListener('click', savePlaylistToStorage);
             clearBtn.addEventListener('click', clearPlaylist);
+            
+            // Event Listeners del modal
+            closeModal.addEventListener('click', closeVideoModal);
+            cancelModal.addEventListener('click', closeVideoModal);
+            confirmModal.addEventListener('click', confirmAddVideo);
+            
+            // Función para preparar la adición de video
+            function prepareAddVideo() {
+                const url = videoUrlInput.value.trim();
+                if (!url) {
+                    showStatusMessage('Por favor, ingresa un enlace de JW.org', 'error');
+                    return;
+                }
+                
+                // Extraer información del video desde la URL de JW.org
+                const videoInfo = extractJWorgInfo(url);
+                if (!videoInfo || !videoInfo.id) {
+                    showStatusMessage('Por favor, ingresa un enlace válido de JW.org', 'error');
+                    return;
+                }
+                
+                // Guardar la URL pendiente y abrir el modal
+                pendingVideoUrl = url;
+                
+                // Establecer un nombre predeterminado
+                modalVideoName.value = videoInfo.title || `Video JW.org (${videoInfo.id})`;
+                modalVideoComment.value = "";
+                
+                // Mostrar el modal
+                videoModal.style.display = 'flex';
+            }
+            
+            // Función para cerrar el modal
+            function closeVideoModal() {
+                videoModal.style.display = 'none';
+                pendingVideoUrl = "";
+            }
+            
+            // Función para confirmar y agregar el video
+            function confirmAddVideo() {
+                const name = modalVideoName.value.trim();
+                const comment = modalVideoComment.value.trim();
+                
+                if (!name) {
+                    showStatusMessage('Por favor, ingresa un nombre para el video', 'error');
+                    return;
+                }
+                
+                addVideoToPlaylist(pendingVideoUrl, name, comment);
+                closeVideoModal();
+                
+                // Limpiar el input de URL
+                videoUrlInput.value = '';
+            }
             
             // Función para mostrar mensajes de estado
             function showStatusMessage(message, type) {
@@ -544,65 +824,106 @@
                 }, 3000);
             }
             
-            // Función para agregar video desde el input
-            function addVideoFromInput() {
-                const url = videoUrlInput.value.trim();
-                if (!url) {
-                    showStatusMessage('Por favor, ingresa un enlace de YouTube', 'error');
-                    return;
+            // Función para abrir el video actual
+            function openCurrentVideo() {
+                if (currentVideoIndex >= 0 && currentVideoUrl) {
+                    window.open(currentVideoUrl, '_blank');
+                } else {
+                    showStatusMessage('Selecciona un video primero', 'error');
                 }
-                
-                const videoId = extractYouTubeId(url);
-                if (!videoId) {
-                    showStatusMessage('Por favor, ingresa un enlace válido de YouTube', 'error');
-                    return;
-                }
-                
-                // Obtener título del video (simulado para este ejemplo)
-                const title = `Video de YouTube (${videoId})`;
-                
-                // En una aplicación real, podrías usar la API de YouTube para obtener el título real
-                addVideoToPlaylist(videoId, title);
-                
-                // Limpiar el input
-                videoUrlInput.value = '';
-                
-                showStatusMessage('Video agregado correctamente', 'success');
             }
             
-            // Función para extraer el ID de un URL de YouTube
-            function extractYouTubeId(url) {
-                const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-                const match = url.match(regExp);
-                return (match && match[7].length === 11) ? match[7] : null;
+            // Función para extraer información de URLs de JW.org
+            function extractJWorgInfo(url) {
+                try {
+                    const urlObj = new URL(url);
+                    const params = new URLSearchParams(urlObj.search);
+                    
+                    // Para enlaces de finder como: https://www.jw.org/finder?srcid=share&wtlocale=S&lank=pub-jwb-125_4_VIDEO
+                    if (urlObj.hostname.includes('jw.org') && urlObj.pathname.includes('/finder')) {
+                        const lankParam = params.get('lank');
+                        if (lankParam && lankParam.startsWith('pub-')) {
+                            return {
+                                id: lankParam,
+                                title: `Video: ${lankParam.split('-').slice(1).join(' ').replace(/_/g, ' ')}`
+                            };
+                        }
+                    }
+                    
+                    // Para enlaces directos a publicaciones
+                    if (urlObj.hostname.includes('jw.org') && urlObj.pathname.includes('/pub-')) {
+                        const pathParts = urlObj.pathname.split('/');
+                        const pubId = pathParts.find(part => part.startsWith('pub-'));
+                        if (pubId) {
+                            return {
+                                id: pubId,
+                                title: `Video: ${pubId.split('-').slice(1).join(' ').replace(/_/g, ' ')}`
+                            };
+                        }
+                    }
+                    
+                    return null;
+                } catch (e) {
+                    console.error('Error parsing URL:', e);
+                    return null;
+                }
             }
             
             // Función para agregar video a la lista de reproducción
-            function addVideoToPlaylist(videoId, title) {
-                playlist.push({ videoId, title });
+            function addVideoToPlaylist(url, name, comment) {
+                // Extraer información del video desde la URL de JW.org
+                const videoInfo = extractJWorgInfo(url);
+                if (!videoInfo || !videoInfo.id) {
+                    showStatusMessage('Error: Enlace de JW.org no válido', 'error');
+                    return;
+                }
+                
+                // Verificar si el video ya existe en la lista
+                if (playlist.some(video => video.url === url)) {
+                    showStatusMessage('Este video ya está en la lista', 'error');
+                    return;
+                }
+                
+                playlist.push({ 
+                    videoId: videoInfo.id, 
+                    title: name, 
+                    comment: comment,
+                    url: url 
+                });
+                
                 renderPlaylist();
                 
-                // Si es el primer video, reproducirlo
+                // Si es el primer video, seleccionarlo
                 if (playlist.length === 1) {
                     currentVideoIndex = 0;
-                    playVideo(currentVideoIndex);
+                    selectVideo(currentVideoIndex);
                 }
                 
                 updateControlButtons();
+                showStatusMessage('Video agregado correctamente', 'success');
             }
             
-            // Función para reproducir un video
-            function playVideo(index) {
+            // Función para seleccionar un video
+            function selectVideo(index) {
                 if (index < 0 || index >= playlist.length) return;
                 
                 currentVideoIndex = index;
-                const videoId = playlist[index].videoId;
-                videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                const video = playlist[index];
+                currentVideoUrl = video.url;
                 
                 // Actualizar la información del video
-                videoTitle.textContent = playlist[index].title;
-                videoDescription.textContent = `ID: ${videoId}`;
-                nowPlayingText.textContent = `Reproduciendo: ${playlist[index].title}`;
+                videoTitle.textContent = video.title;
+                videoDescription.textContent = `ID: ${video.videoId}`;
+                nowPlayingText.textContent = `Seleccionado: ${video.title}`;
+                placeholderText.textContent = `Reproducir: ${video.title}`;
+                
+                // Mostrar comentario si existe
+                if (video.comment) {
+                    commentText.textContent = video.comment;
+                    commentDisplay.style.display = 'block';
+                } else {
+                    commentDisplay.style.display = 'none';
+                }
                 
                 // Actualizar la lista para resaltar el video actual
                 renderPlaylist();
@@ -612,13 +933,13 @@
             // Función para reproducir el video anterior
             function playPreviousVideo() {
                 if (currentVideoIndex <= 0) return;
-                playVideo(currentVideoIndex - 1);
+                selectVideo(currentVideoIndex - 1);
             }
             
             // Función para reproducir el siguiente video
             function playNextVideo() {
                 if (currentVideoIndex >= playlist.length - 1) return;
-                playVideo(currentVideoIndex + 1);
+                selectVideo(currentVideoIndex + 1);
             }
             
             // Función para renderizar la lista de reproducción
@@ -629,7 +950,7 @@
                 if (playlist.length === 0) {
                     playlistElement.innerHTML = `
                         <li class="empty-playlist">
-                            <i class="fas fa-music"></i>
+                            <i class="fas fa-film"></i>
                             <p>La lista de reproducción está vacía</p>
                             <p>Agrega algunos videos para comenzar</p>
                         </li>
@@ -649,6 +970,7 @@
                         <div class="video-info-small">
                             <div class="video-title">${video.title}</div>
                             <div class="video-id">ID: ${video.videoId}</div>
+                            ${video.comment ? `<div class="video-comment-small">${video.comment}</div>` : ''}
                         </div>
                         <div class="playlist-controls">
                             <button class="control-btn play-btn" data-index="${index}">
@@ -667,7 +989,7 @@
                 document.querySelectorAll('.play-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const index = parseInt(this.getAttribute('data-index'));
-                        playVideo(index);
+                        selectVideo(index);
                     });
                 });
                 
@@ -688,16 +1010,18 @@
                     currentVideoIndex--;
                 }
                 
-                // Si eliminamos el video actual, reproducir el siguiente o detener
+                // Si eliminamos el video actual, seleccionar el siguiente o limpiar
                 if (index === currentVideoIndex) {
                     if (playlist.length > 0) {
-                        playVideo(Math.min(currentVideoIndex, playlist.length - 1));
+                        selectVideo(Math.min(currentVideoIndex, playlist.length - 1));
                     } else {
                         currentVideoIndex = -1;
-                        videoPlayer.src = '';
+                        currentVideoUrl = "";
                         videoTitle.textContent = 'Selecciona un video de la lista';
                         videoDescription.textContent = 'Los videos que agregues aparecerán aquí';
-                        nowPlayingText.textContent = 'No se está reproduciendo ningún video';
+                        nowPlayingText.textContent = 'No hay video seleccionado';
+                        placeholderText.textContent = 'Haz clic para reproducir el video';
+                        commentDisplay.style.display = 'none';
                     }
                 }
                 
@@ -715,7 +1039,7 @@
             // Función para guardar la lista en localStorage
             function savePlaylistToStorage() {
                 try {
-                    localStorage.setItem('youtubePlaylist', JSON.stringify(playlist));
+                    localStorage.setItem('jwPlaylist', JSON.stringify(playlist));
                     showStatusMessage('Lista guardada correctamente en el almacenamiento local', 'success');
                 } catch (e) {
                     showStatusMessage('Error al guardar la lista: ' + e.message, 'error');
@@ -725,17 +1049,17 @@
             // Función para cargar la lista desde localStorage
             function loadPlaylist() {
                 try {
-                    const savedPlaylist = localStorage.getItem('youtubePlaylist');
+                    const savedPlaylist = localStorage.getItem('jwPlaylist');
                     if (savedPlaylist) {
                         playlist = JSON.parse(savedPlaylist);
                         renderPlaylist();
                         updateControlButtons();
                         
-                        // Reproducir el último video visto si existe
+                        // Seleccionar el último video visto si existe
                         if (playlist.length > 0) {
-                            const lastVideoIndex = localStorage.getItem('lastVideoIndex');
+                            const lastVideoIndex = localStorage.getItem('lastJWVideoIndex');
                             if (lastVideoIndex !== null) {
-                                playVideo(parseInt(lastVideoIndex));
+                                selectVideo(parseInt(lastVideoIndex));
                             }
                         }
                     }
@@ -749,19 +1073,21 @@
                 if (confirm('¿Estás seguro de que quieres limpiar la lista de reproducción?')) {
                     playlist = [];
                     currentVideoIndex = -1;
-                    videoPlayer.src = '';
+                    currentVideoUrl = "";
                     renderPlaylist();
                     updateControlButtons();
                     
                     try {
-                        localStorage.removeItem('youtubePlaylist');
-                        localStorage.removeItem('lastVideoIndex');
+                        localStorage.removeItem('jwPlaylist');
+                        localStorage.removeItem('lastJWVideoIndex');
                         showStatusMessage('Lista limpiada correctamente', 'success');
                         
                         // Restablecer la información del video
                         videoTitle.textContent = 'Selecciona un video de la lista';
                         videoDescription.textContent = 'Los videos que agregues aparecerán aquí';
-                        nowPlayingText.textContent = 'No se está reproduciendo ningún video';
+                        nowPlayingText.textContent = 'No hay video seleccionado';
+                        placeholderText.textContent = 'Haz clic para reproducir el video';
+                        commentDisplay.style.display = 'none';
                     } catch (e) {
                         showStatusMessage('Error al limpiar la lista: ' + e.message, 'error');
                     }
@@ -771,9 +1097,28 @@
             // Guardar el índice del video actual antes de cerrar la página
             window.addEventListener('beforeunload', function() {
                 if (currentVideoIndex >= 0) {
-                    localStorage.setItem('lastVideoIndex', currentVideoIndex);
+                    localStorage.setItem('lastJWVideoIndex', currentVideoIndex);
                 }
             });
+            
+            // Ejemplo de videos predefinidos
+            const exampleVideos = [
+                {
+                    videoId: "pub-jwb-125_4_VIDEO",
+                    title: "¿Por qué bautizó Jesús a sus discípulos?",
+                    comment: "Un video interesante sobre el bautismo en la época de Jesús",
+                    url: "https://www.jw.org/finder?srcid=jwlshare&wtlocale=S&lank=pub-jwb-125_4_VIDEO"
+                }
+            ];
+            
+            // Agregar videos de ejemplo si la lista está vacía
+            if (playlist.length === 0) {
+                exampleVideos.forEach(video => {
+                    playlist.push(video);
+                });
+                renderPlaylist();
+                updateControlButtons();
+            }
         });
     </script>
 </body>
