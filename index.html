@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor YouTube con Memoria Local</title>
+    <title>NeoTube Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #ff375f;
+            --secondary: #6e45e2;
+            --dark: #0f0f0f;
+            --light: #ffffff;
+            --gray: #272727;
+            --light-gray: #aaaaaa;
+        }
+        
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,71 +23,92 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: #fff;
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            color: var(--light);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         
         header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #fdbb2d;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #fdbb2d;
-        }
-        
-        .description {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .main-content {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--light);
+        }
+        
+        .logo i {
+            color: var(--primary);
         }
         
         .player-section {
-            flex: 1;
-            min-width: 300px;
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gray);
         }
         
         .playlist-section {
-            flex: 1;
-            min-width: 300px;
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gray);
+            height: fit-content;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #fdbb2d;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #444;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .section-title i {
+            color: var(--primary);
         }
         
         #video-container {
             position: relative;
-            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
             background: #000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
         
         #video-player {
@@ -87,74 +118,156 @@
             width: 100%;
             height: 100%;
             border: none;
+            border-radius: 12px;
+        }
+        
+        .video-info {
+            padding: 15px 0;
+        }
+        
+        .video-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+        
+        .video-info p {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(39, 39, 39, 0.5);
+            border-radius: 12px;
+        }
+        
+        .player-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .player-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 55, 95, 0.4);
+        }
+        
+        .player-btn:disabled {
+            background: var(--gray);
+            color: var(--light-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .add-video-form {
             display: flex;
             margin-bottom: 20px;
+            gap: 10px;
         }
         
         #video-url {
             flex: 1;
-            padding: 12px 15px;
+            padding: 15px;
             border: none;
-            border-radius: 5px 0 0 5px;
+            border-radius: 8px;
             font-size: 1rem;
-            background: #333;
+            background: rgba(39, 39, 39, 0.7);
             color: white;
+            border: 1px solid var(--gray);
+        }
+        
+        #video-url:focus {
+            outline: none;
+            border-color: var(--primary);
         }
         
         #add-video-btn {
-            padding: 12px 20px;
+            padding: 15px 20px;
             border: none;
-            border-radius: 0 5px 5px 0;
-            background: #fdbb2d;
-            color: #1a2a6c;
+            border-radius: 8px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
         
         #add-video-btn:hover {
-            background: #ffa500;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 55, 95, 0.4);
         }
         
         #playlist {
             list-style: none;
-            max-height: 400px;
             overflow-y: auto;
-            background: rgba(50, 50, 50, 0.6);
-            border-radius: 10px;
-            padding: 10px;
+            flex: 1;
+            padding-right: 5px;
+            margin-bottom: 20px;
+        }
+        
+        #playlist::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        #playlist::-webkit-scrollbar-track {
+            background: rgba(39, 39, 39, 0.5);
+            border-radius: 3px;
+        }
+        
+        #playlist::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
         }
         
         .playlist-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
+            padding: 15px;
             margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            transition: background 0.3s;
+            background: rgba(39, 39, 39, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
         }
         
         .playlist-item:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(39, 39, 39, 0.8);
+            transform: translateX(5px);
         }
         
         .playlist-item.active {
-            background: rgba(253, 187, 45, 0.3);
-            border-left: 4px solid #fdbb2d;
+            background: rgba(110, 69, 226, 0.2);
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .video-info-small {
+            flex: 1;
+            margin-right: 15px;
         }
         
         .video-title {
-            flex: 1;
-            margin-right: 15px;
             font-size: 0.95rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+        
+        .video-id {
+            font-size: 0.8rem;
+            color: var(--light-gray);
         }
         
         .playlist-controls {
@@ -165,139 +278,221 @@
         .control-btn {
             background: none;
             border: none;
-            color: #fdbb2d;
+            color: var(--light-gray);
             cursor: pointer;
-            font-size: 1.2rem;
-            transition: color 0.3s;
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .control-btn:hover {
-            color: #fff;
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.1);
         }
         
-        .player-controls {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+        .play-btn:hover {
+            color: var(--primary);
         }
         
-        .player-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background: #1a2a6c;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .player-btn:hover {
-            background: #2a3a8c;
-        }
-        
-        .player-btn:disabled {
-            background: #555;
-            cursor: not-allowed;
+        .delete-btn:hover {
+            color: #ff375f;
         }
         
         .empty-playlist {
             text-align: center;
-            padding: 20px;
-            color: #999;
+            padding: 40px 20px;
+            color: var(--light-gray);
             font-style: italic;
         }
         
+        .empty-playlist i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+        
         .memory-buttons {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
         .memory-btn {
-            padding: 10px 15px;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
-            background: #6c1a5c;
+            border-radius: 8px;
+            background: rgba(39, 39, 39, 0.7);
             color: white;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .memory-btn:hover {
-            background: #8c3a7c;
+            background: rgba(39, 39, 39, 0.9);
+            transform: translateY(-2px);
+        }
+        
+        #save-btn {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+        }
+        
+        #clear-btn {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
         }
         
         .status-message {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 15px 0;
             text-align: center;
-            padding: 10px;
-            margin-top: 15px;
-            border-radius: 5px;
             display: none;
+            font-size: 0.9rem;
         }
         
         .status-message.success {
-            background: rgba(46, 160, 67, 0.2);
-            color: #3fb950;
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
             display: block;
+            border: 1px solid rgba(46, 204, 113, 0.3);
         }
         
         .status-message.error {
-            background: rgba(248, 81, 73, 0.2);
-            color: #f85149;
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
             display: block;
+            border: 1px solid rgba(231, 76, 60, 0.3);
         }
         
-        @media (max-width: 768px) {
-            .main-content {
+        .now-playing {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(39, 39, 39, 0.5);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .now-playing i {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 1100px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .playlist-section {
+                max-height: none;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .player-controls {
                 flex-direction: column;
+                gap: 10px;
+            }
+            
+            .player-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .add-video-form {
+                flex-direction: column;
+            }
+            
+            .memory-buttons {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-play-circle"></i>
+            <span>NeoTube Player</span>
+        </div>
+    </header>
+
     <div class="container">
-        <header>
-            <h1>Reproductor de YouTube con Memoria Local</h1>
-            <p class="description">Agrega videos de YouTube y crea listas de reproducción que se guardan localmente</p>
-        </header>
-        
-        <div id="status-message" class="status-message"></div>
-        
-        <div class="main-content">
-            <div class="player-section">
-                <h2 class="section-title">Reproductor</h2>
-                <div id="video-container">
-                    <iframe id="video-player" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                
-                <div class="player-controls">
-                    <button id="prev-btn" class="player-btn" disabled>Anterior</button>
-                    <button id="next-btn" class="player-btn" disabled>Siguiente</button>
-                </div>
-                
-                <div class="memory-buttons">
-                    <button id="save-btn" class="memory-btn">Guardar Lista</button>
-                    <button id="clear-btn" class="memory-btn">Limpiar Lista</button>
-                </div>
+        <div class="player-section">
+            <h2 class="section-title">
+                <i class="fas fa-play"></i>
+                Reproductor
+            </h2>
+            
+            <div id="video-container">
+                <iframe id="video-player" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             
-            <div class="playlist-section">
-                <h2 class="section-title">Lista de Reproducción</h2>
-                
-                <div class="add-video-form">
-                    <input type="text" id="video-url" placeholder="Pega el enlace de YouTube aquí...">
-                    <button id="add-video-btn">Agregar</button>
-                </div>
-                
-                <ul id="playlist">
-                    <li class="empty-playlist">La lista de reproducción está vacía. Agrega algunos videos!</li>
-                </ul>
+            <div class="video-info">
+                <h3 id="video-title">Selecciona un video de la lista</h3>
+                <p id="video-description">Los videos que agregues aparecerán aquí</p>
+            </div>
+            
+            <div class="player-controls">
+                <button id="prev-btn" class="player-btn" disabled>
+                    <i class="fas fa-arrow-left"></i>
+                    Anterior
+                </button>
+                <button id="next-btn" class="player-btn" disabled>
+                    Siguiente
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <div class="now-playing">
+                <i class="fas fa-info-circle"></i>
+                <span id="now-playing-text">No se está reproduciendo ningún video</span>
+            </div>
+        </div>
+        
+        <div class="playlist-section">
+            <h2 class="section-title">
+                <i class="fas fa-list"></i>
+                Lista de Reproducción
+            </h2>
+            
+            <div class="add-video-form">
+                <input type="text" id="video-url" placeholder="Pega el enlace de YouTube aquí...">
+                <button id="add-video-btn">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <div id="status-message" class="status-message"></div>
+            
+            <ul id="playlist">
+                <li class="empty-playlist">
+                    <i class="fas fa-music"></i>
+                    <p>La lista de reproducción está vacía</p>
+                    <p>Agrega algunos videos para comenzar</p>
+                </li>
+            </ul>
+            
+            <div class="memory-buttons">
+                <button id="save-btn" class="memory-btn">
+                    <i class="fas fa-save"></i>
+                    Guardar Lista
+                </button>
+                <button id="clear-btn" class="memory-btn">
+                    <i class="fas fa-trash"></i>
+                    Limpiar Lista
+                </button>
             </div>
         </div>
     </div>
@@ -314,6 +509,9 @@
             const saveBtn = document.getElementById('save-btn');
             const clearBtn = document.getElementById('clear-btn');
             const statusMessage = document.getElementById('status-message');
+            const videoTitle = document.getElementById('video-title');
+            const videoDescription = document.getElementById('video-description');
+            const nowPlayingText = document.getElementById('now-playing-text');
             
             // Variables de estado
             let playlist = [];
@@ -401,6 +599,11 @@
                 const videoId = playlist[index].videoId;
                 videoPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
                 
+                // Actualizar la información del video
+                videoTitle.textContent = playlist[index].title;
+                videoDescription.textContent = `ID: ${videoId}`;
+                nowPlayingText.textContent = `Reproduciendo: ${playlist[index].title}`;
+                
                 // Actualizar la lista para resaltar el video actual
                 renderPlaylist();
                 updateControlButtons();
@@ -424,7 +627,13 @@
                 playlistElement.innerHTML = '';
                 
                 if (playlist.length === 0) {
-                    playlistElement.innerHTML = '<li class="empty-playlist">La lista de reproducción está vacía. Agrega algunos videos!</li>';
+                    playlistElement.innerHTML = `
+                        <li class="empty-playlist">
+                            <i class="fas fa-music"></i>
+                            <p>La lista de reproducción está vacía</p>
+                            <p>Agrega algunos videos para comenzar</p>
+                        </li>
+                    `;
                     return;
                 }
                 
@@ -437,10 +646,17 @@
                     }
                     
                     li.innerHTML = `
-                        <span class="video-title">${video.title}</span>
+                        <div class="video-info-small">
+                            <div class="video-title">${video.title}</div>
+                            <div class="video-id">ID: ${video.videoId}</div>
+                        </div>
                         <div class="playlist-controls">
-                            <button class="control-btn play-btn" data-index="${index}">▶</button>
-                            <button class="control-btn delete-btn" data-index="${index}">✕</button>
+                            <button class="control-btn play-btn" data-index="${index}">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button class="control-btn delete-btn" data-index="${index}">
+                                <i class="fas fa-times"></i>
+                            </button>
                         </div>
                     `;
                     
@@ -479,6 +695,9 @@
                     } else {
                         currentVideoIndex = -1;
                         videoPlayer.src = '';
+                        videoTitle.textContent = 'Selecciona un video de la lista';
+                        videoDescription.textContent = 'Los videos que agregues aparecerán aquí';
+                        nowPlayingText.textContent = 'No se está reproduciendo ningún video';
                     }
                 }
                 
@@ -538,6 +757,11 @@
                         localStorage.removeItem('youtubePlaylist');
                         localStorage.removeItem('lastVideoIndex');
                         showStatusMessage('Lista limpiada correctamente', 'success');
+                        
+                        // Restablecer la información del video
+                        videoTitle.textContent = 'Selecciona un video de la lista';
+                        videoDescription.textContent = 'Los videos que agregues aparecerán aquí';
+                        nowPlayingText.textContent = 'No se está reproduciendo ningún video';
                     } catch (e) {
                         showStatusMessage('Error al limpiar la lista: ' + e.message, 'error');
                     }
