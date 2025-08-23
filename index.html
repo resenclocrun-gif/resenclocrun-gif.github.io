@@ -3,1123 +3,1341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JW Player - Con Nombres y Comentarios</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>📖 Mi Diario de Estudio Espiritual</title>
     <style>
-        :root {
-            --primary: #5c8fc2;
-            --secondary: #3a6ea5;
-            --dark: #1a2a3a;
-            --light: #ffffff;
-            --gray: #2c3e50;
-            --light-gray: #bdc3c7;
-        }
-        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
         }
-        
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #4f46e5, #7c3aed);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --border-color: #e2e8f0;
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
         body {
-            background: linear-gradient(135deg, var(--dark), #2c3e50);
-            color: var(--light);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-gradient);
             min-height: 100vh;
-            padding: 0;
-            overflow-x: hidden;
+            padding: 20px;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
-        
-        .container {
+
+        .app-container {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 20px;
-            padding: 20px;
+            grid-template-columns: 320px 1fr;
+            gap: 30px;
+            height: calc(100vh - 40px);
         }
-        
-        header {
-            background: rgba(26, 42, 58, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--gray);
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--light);
-        }
-        
-        .logo i {
-            color: var(--primary);
-        }
-        
-        .player-section {
-            background: rgba(30, 40, 50, 0.8);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--gray);
-        }
-        
-        .playlist-section {
-            background: rgba(30, 40, 50, 0.8);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--gray);
-            height: fit-content;
-            max-height: 90vh;
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow-heavy);
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
-        
-        .section-title {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: var(--light);
+
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow-heavy);
+            overflow: hidden;
             display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--gray);
+            flex-direction: column;
         }
-        
-        .section-title i {
-            color: var(--primary);
-        }
-        
-        .video-placeholder {
+
+        .header {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 25px;
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
             overflow: hidden;
-            border-radius: 12px;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 15px,
+                rgba(255, 255, 255, 0.03) 15px,
+                rgba(255, 255, 255, 0.03) 30px
+            );
+            animation: shimmer 25s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-content {
+            padding: 25px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .main-header {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .main-body {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 20px;
-            background: #000;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: var(--bg-white);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .textarea-field {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: var(--secondary-gradient);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://assetsnffrgf-a.akamaihd.net/assets/m/502014100/univ/art/502014100_univ_sqr_xl.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .play-icon {
-            font-size: 4rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .play-icon:hover {
-            transform: scale(1.1);
-            color: var(--secondary);
-        }
-        
-        .video-info {
-            padding: 15px 0;
-        }
-        
-        .video-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--light);
-        }
-        
-        .video-info p {
-            color: var(--light-gray);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        
-        .video-comment {
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(44, 62, 80, 0.4);
-            border-radius: 8px;
-            border-left: 3px solid var(--primary);
-        }
-        
-        .player-controls {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(44, 62, 80, 0.6);
-            border-radius: 12px;
-        }
-        
-        .player-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
             gap: 8px;
         }
-        
-        .player-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(92, 143, 194, 0.4);
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
         }
-        
-        .player-btn:disabled {
-            background: var(--gray);
-            color: var(--light-gray);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+
+        .btn:active {
+            transform: translateY(-1px);
         }
-        
-        .add-video-form {
-            display: flex;
-            flex-direction: column;
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
+        }
+
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 12px;
+            width: auto;
+            margin-bottom: 0;
+        }
+
+        .study-type-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
             margin-bottom: 20px;
+        }
+
+        .study-type-btn {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-white);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .study-type-btn:hover {
+            border-color: #4f46e5;
+            transform: translateY(-2px);
+        }
+
+        .study-type-btn.active {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        .entries-container {
+            max-height: calc(100vh - 300px);
+            overflow-y: auto;
+        }
+
+        .entry-card {
+            background: var(--bg-white);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .entry-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary-gradient);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+            border-color: #4f46e5;
+        }
+
+        .entry-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .entry-card.active {
+            border-color: #4f46e5;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 12px;
             gap: 10px;
         }
-        
-        #video-url {
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: rgba(44, 62, 80, 0.7);
+
+        .entry-type {
+            background: var(--secondary-gradient);
             color: white;
-            border: 1px solid var(--gray);
-        }
-        
-        #video-url:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        #video-name {
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: rgba(44, 62, 80, 0.7);
-            color: white;
-            border: 1px solid var(--gray);
-        }
-        
-        #video-comment {
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: rgba(44, 62, 80, 0.7);
-            color: white;
-            border: 1px solid var(--gray);
-            resize: vertical;
-            min-height: 80px;
-            font-family: inherit;
-        }
-        
-        #video-name:focus, #video-comment:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        #add-video-btn {
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        #add-video-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(92, 143, 194, 0.4);
-        }
-        
-        #playlist {
-            list-style: none;
-            overflow-y: auto;
-            flex: 1;
-            padding-right: 5px;
-            margin-bottom: 20px;
-        }
-        
-        #playlist::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        #playlist::-webkit-scrollbar-track {
-            background: rgba(44, 62, 80, 0.5);
-            border-radius: 3px;
-        }
-        
-        #playlist::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
-        
-        .playlist-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: rgba(44, 62, 80, 0.6);
-            border-radius: 10px;
-            transition: all 0.3s;
-            border-left: 3px solid transparent;
-        }
-        
-        .playlist-item:hover {
-            background: rgba(44, 62, 80, 0.8);
-            transform: translateX(5px);
-        }
-        
-        .playlist-item.active {
-            background: rgba(58, 110, 165, 0.3);
-            border-left: 3px solid var(--secondary);
-        }
-        
-        .video-info-small {
-            flex: 1;
-            margin-right: 15px;
-        }
-        
-        .video-title {
-            font-size: 0.95rem;
-            margin-bottom: 5px;
-            color: var(--light);
-        }
-        
-        .video-comment-small {
-            font-size: 0.8rem;
-            color: var(--light-gray);
-            font-style: italic;
-            margin-top: 5px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
             white-space: nowrap;
         }
-        
-        .video-id {
-            font-size: 0.8rem;
-            color: var(--light-gray);
+
+        .entry-date {
+            font-size: 11px;
+            color: var(--text-secondary);
+            white-space: nowrap;
         }
-        
-        .playlist-controls {
-            display: flex;
-            gap: 10px;
+
+        .entry-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
         }
-        
-        .control-btn {
-            background: none;
-            border: none;
-            color: var(--light-gray);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
+
+        .entry-preview {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .entry-tags {
             display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .entry-tag {
+            background: var(--bg-light);
+            color: var(--text-secondary);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .detailed-view {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .detailed-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-header {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .detail-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 15px;
             align-items: center;
-            justify-content: center;
+            flex-wrap: wrap;
         }
-        
-        .control-btn:hover {
-            color: var(--light);
-            background: rgba(255, 255, 255, 0.1);
+
+        .detail-content {
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
         }
-        
-        .play-btn:hover {
-            color: var(--primary);
+
+        .detail-section {
+            margin-bottom: 25px;
         }
-        
-        .delete-btn:hover {
-            color: #e74c3c;
+
+        .detail-section h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
-        
-        .empty-playlist {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--light-gray);
+
+        .scripture-reference {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid var(--warning-color);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 15px 0;
             font-style: italic;
         }
-        
-        .empty-playlist i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: var(--gray);
-        }
-        
-        .memory-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .memory-btn {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(44, 62, 80, 0.7);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .memory-btn:hover {
-            background: rgba(44, 62, 80, 0.9);
-            transform: translateY(-2px);
-        }
-        
-        #save-btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-        }
-        
-        #clear-btn {
-            background: linear-gradient(to right, #e74c3c, #c0392b);
-        }
-        
-        .status-message {
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            text-align: center;
-            display: none;
-            font-size: 0.9rem;
-        }
-        
-        .status-message.success {
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
-            display: block;
-            border: 1px solid rgba(46, 204, 113, 0.3);
-        }
-        
-        .status-message.error {
-            background: rgba(231, 76, 60, 0.2);
-            color: #e74c3c;
-            display: block;
-            border: 1px solid rgba(231, 76, 60, 0.3);
-        }
-        
-        .now-playing {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(44, 62, 80, 0.6);
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .now-playing i {
-            color: var(--primary);
-        }
-        
-        .instructions {
-            background: rgba(44, 62, 80, 0.6);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .instructions h4 {
-            margin-bottom: 10px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .instructions ul {
-            margin-left: 20px;
-            color: var(--light-gray);
-        }
-        
-        .instructions li {
-            margin-bottom: 8px;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            background: var(--dark);
-            padding: 25px;
+
+        .reflection-text {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-left: 4px solid #0ea5e9;
+            padding: 20px;
             border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--gray);
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
-        
-        .modal-header {
+
+        .action-buttons {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--gray);
+            gap: 12px;
+            margin-top: 25px;
+            flex-wrap: wrap;
         }
-        
-        .modal-title {
-            font-size: 1.4rem;
-            color: var(--light);
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
         }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--light-gray);
-            font-size: 1.5rem;
-            cursor: pointer;
+
+        .stat-card {
+            background: var(--bg-white);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
         }
-        
-        .close-modal:hover {
-            color: var(--light);
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #4f46e5;
             display: block;
-            margin-bottom: 8px;
-            color: var(--light);
         }
-        
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
         }
-        
-        .modal-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
         }
-        
-        .modal-btn.cancel {
-            background: var(--gray);
-            color: var(--light);
+
+        .search-input {
+            padding-left: 45px;
         }
-        
-        .modal-btn.confirm {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .welcome-view {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .welcome-icon {
+            font-size: 5rem;
+            margin-bottom: 25px;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: var(--success-color);
             color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-medium);
+            transform: translateX(400px);
+            transition: transform 0.4s ease;
+            z-index: 1000;
+            font-weight: 600;
         }
-        
-        @media (max-width: 1100px) {
-            .container {
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: var(--danger-color);
+        }
+
+        .notification.warning {
+            background: var(--warning-color);
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+            
+            .main-content {
+                order: 1;
+                min-height: 70vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .app-container {
+                gap: 20px;
+            }
+            
+            .study-type-selector {
                 grid-template-columns: 1fr;
             }
             
-            .playlist-section {
-                max-height: none;
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
-        }
-        
-        @media (max-width: 600px) {
-            .player-controls {
+            
+            .detail-meta {
                 flex-direction: column;
-                gap: 10px;
+                align-items: flex-start;
             }
-            
-            .player-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .memory-buttons {
-                grid-template-columns: 1fr;
-            }
-            
-            .modal-content {
-                width: 95%;
-                padding: 20px;
-            }
+        }
+
+        .floating-add-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: var(--secondary-gradient);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-heavy);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .floating-add-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+        }
+
+        /* Scrollbars personalizados */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
         }
     </style>
 </head>
 <body>
-    <div class="modal" id="video-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Agregar Video</h3>
-                <button class="close-modal" id="close-modal">&times;</button>
-            </div>
-            <div class="form-group">
-                <label for="modal-video-name">Nombre del Video:</label>
-                <input type="text" id="modal-video-name" placeholder="Ingresa un nombre para el video">
-            </div>
-            <div class="form-group">
-                <label for="modal-video-comment">Comentario (opcional):</label>
-                <textarea id="modal-video-comment" placeholder="Agrega un comentario sobre este video"></textarea>
-            </div>
-            <div class="modal-actions">
-                <button class="modal-btn cancel" id="cancel-modal">Cancelar</button>
-                <button class="modal-btn confirm" id="confirm-modal">Agregar Video</button>
-            </div>
-        </div>
-    </div>
-
-    <header>
-        <div class="logo">
-            <i class="fas fa-play-circle"></i>
-            <span>JW Player</span>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="player-section">
-            <h2 class="section-title">
-                <i class="fas fa-play"></i>
-                Reproductor
-            </h2>
-            
-            <div class="video-placeholder" id="video-placeholder">
-                <i class="fas fa-play-circle play-icon" id="play-button"></i>
-                <h3 id="placeholder-text">Haz clic para reproducir el video</h3>
-                <p>El video se abrirá en una nueva pestaña</p>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="header">
+                <h1>📖 Mi Diario Espiritual</h1>
+                <p>Tu compañero de estudio y reflexión</p>
             </div>
             
-            <div class="video-info">
-                <h3 id="video-title">Selecciona un video de la lista</h3>
-                <p id="video-description">Los videos que agregues aparecerán aquí</p>
-                <div class="video-comment" id="video-comment-display" style="display: none;">
-                    <strong>Comentario:</strong> <span id="comment-text"></span>
+            <div class="sidebar-content">
+                <div class="section-title">
+                    ✨ Nueva Entrada
+                </div>
+
+                <div class="study-type-selector">
+                    <div class="study-type-btn active" data-type="video">
+                        🎬 Video
+                    </div>
+                    <div class="study-type-btn" data-type="publication">
+                        📚 Publicación
+                    </div>
+                    <div class="study-type-btn" data-type="bible">
+                        📖 Biblia
+                    </div>
+                    <div class="study-type-btn" data-type="personal">
+                        💭 Personal
+                    </div>
+                </div>
+
+                <form id="studyForm">
+                    <div class="input-group">
+                        <label class="input-label">Título de tu estudio</label>
+                        <input type="text" class="input-field" id="studyTitle" placeholder="Ej: Reflexión sobre la paciencia" required>
+                    </div>
+
+                    <div class="input-group" id="urlGroup">
+                        <label class="input-label">URL (Video/Publicación)</label>
+                        <input type="url" class="input-field" id="studyUrl" placeholder="https://www.jw.org/...">
+                    </div>
+
+                    <div class="input-group" id="scriptureGroup" style="display: none;">
+                        <label class="input-label">Referencia Bíblica</label>
+                        <input type="text" class="input-field" id="scriptureRef" placeholder="Ej: Salmo 23:1-6">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Texto clave o cita</label>
+                        <textarea class="input-field textarea-field" id="keyText" placeholder="Escribe aquí el texto o versículo que te llamó la atención..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Tu reflexión personal</label>
+                        <textarea class="input-field textarea-field" id="personalReflection" placeholder="¿Qué aprendiste? ¿Cómo lo aplicarás en tu vida? ¿Qué sentiste al estudiar esto?" required style="min-height: 150px;"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Aplicación práctica</label>
+                        <textarea class="input-field textarea-field" id="practicalApplication" placeholder="¿Cómo vas a aplicar esto en tu vida diaria? ¿Qué cambios harás?"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Etiquetas (separadas por comas)</label>
+                        <input type="text" class="input-field" id="studyTags" placeholder="paciencia, amor, fe, oración">
+                    </div>
+
+                    <button type="submit" class="btn btn-success">
+                        💾 Guardar Estudio
+                    </button>
+                </form>
+
+                <div style="margin: 25px 0; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                    <button class="btn btn-secondary" id="exportBtn">
+                        📤 Exportar Todo
+                    </button>
+                    <button class="btn btn-secondary" id="importBtn">
+                        📥 Importar Estudios
+                    </button>
+                    <button class="btn btn-danger" id="clearAllBtn">
+                        🗑️ Limpiar Todo
+                    </button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="totalEntries">0</span>
+                        <span class="stat-label">Estudios</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="thisMonth">0</span>
+                        <span class="stat-label">Este mes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="main-header">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="input-field search-input" id="searchInput" placeholder="Buscar en tus estudios...">
                 </div>
             </div>
             
-            <div class="player-controls">
-                <button id="prev-btn" class="player-btn" disabled>
-                    <i class="fas fa-arrow-left"></i>
-                    Anterior
-                </button>
-                <button id="next-btn" class="player-btn" disabled>
-                    Siguiente
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-            
-            <div class="now-playing">
-                <i class="fas fa-info-circle"></i>
-                <span id="now-playing-text">No se está reproduciendo ningún video</span>
-            </div>
-        </div>
-        
-        <div class="playlist-section">
-            <h2 class="section-title">
-                <i class="fas fa-list"></i>
-                Lista de Reproducción
-            </h2>
-            
-            <div class="add-video-form">
-                <input type="text" id="video-url" placeholder="Pega el enlace de JW.org aquí..." value="https://www.jw.org/finder?srcid=jwlshare&wtlocale=S&lank=pub-jwb-125_4_VIDEO">
-                <button id="add-video-btn">
-                    <i class="fas fa-plus"></i> Agregar Video
-                </button>
-            </div>
-            
-            <div id="status-message" class="status-message"></div>
-            
-            <ul id="playlist">
-                <li class="empty-playlist">
-                    <i class="fas fa-film"></i>
-                    <p>La lista de reproducción está vacía</p>
-                    <p>Agrega algunos videos para comenzar</p>
-                </li>
-            </ul>
-            
-            <div class="memory-buttons">
-                <button id="save-btn" class="memory-btn">
-                    <i class="fas fa-save"></i>
-                    Guardar Lista
-                </button>
-                <button id="clear-btn" class="memory-btn">
-                    <i class="fas fa-trash"></i>
-                    Limpiar Lista
-                </button>
-            </div>
-            
-            <div class="instructions">
-                <h4><i class="fas fa-info-circle"></i> Cómo usar este reproductor:</h4>
-                <ul>
-                    <li>Busca videos en <a href="https://www.jw.org" style="color:var(--primary);" target="_blank">JW.org</a></li>
-                    <li>Copia la URL del video y pégala arriba</li>
-                    <li>Se te pedirá que nombres el video y agregues un comentario</li>
-                    <li>Haz clic en el botón de reproducción para abrir el video</li>
-                    <li>Los videos se guardarán localmente en tu navegador</li>
-                </ul>
+            <div class="main-body">
+                <!-- Vista de bienvenida -->
+                <div class="welcome-view" id="welcomeView">
+                    <div class="welcome-icon">📖</div>
+                    <h2 class="welcome-title">¡Bienvenido a tu Diario Espiritual!</h2>
+                    <p class="welcome-text">
+                        Aquí podrás documentar tus estudios, reflexiones y crecimiento espiritual. 
+                        Cada entrada que agregues será un tesoro de sabiduría que podrás revisar 
+                        y compartir en el futuro. ¡Comienza creando tu primer estudio!
+                    </p>
+                </div>
+
+                <!-- Lista de entradas -->
+                <div class="entries-container" id="entriesContainer" style="display: none;">
+                    <!-- Las entradas se cargarán aquí dinámicamente -->
+                </div>
+
+                <!-- Vista detallada -->
+                <div class="detailed-view" id="detailedView">
+                    <!-- El contenido detallado se cargará aquí -->
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Botón flotante para agregar -->
+    <button class="floating-add-btn" id="floatingAddBtn" title="Nueva entrada">
+        ➕
+    </button>
+
+    <!-- Notificaciones -->
+    <div class="notification" id="notification">
+        <span id="notificationMessage"></span>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementos del DOM
-            const videoPlaceholder = document.getElementById('video-placeholder');
-            const playButton = document.getElementById('play-button');
-            const placeholderText = document.getElementById('placeholder-text');
-            const videoUrlInput = document.getElementById('video-url');
-            const addVideoBtn = document.getElementById('add-video-btn');
-            const playlistElement = document.getElementById('playlist');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const saveBtn = document.getElementById('save-btn');
-            const clearBtn = document.getElementById('clear-btn');
-            const statusMessage = document.getElementById('status-message');
-            const videoTitle = document.getElementById('video-title');
-            const videoDescription = document.getElementById('video-description');
-            const nowPlayingText = document.getElementById('now-playing-text');
-            const commentDisplay = document.getElementById('video-comment-display');
-            const commentText = document.getElementById('comment-text');
-            
-            // Elementos del modal
-            const videoModal = document.getElementById('video-modal');
-            const modalVideoName = document.getElementById('modal-video-name');
-            const modalVideoComment = document.getElementById('modal-video-comment');
-            const closeModal = document.getElementById('close-modal');
-            const cancelModal = document.getElementById('cancel-modal');
-            const confirmModal = document.getElementById('confirm-modal');
-            
-            // Variables de estado
-            let playlist = [];
-            let currentVideoIndex = -1;
-            let currentVideoUrl = "";
-            let pendingVideoUrl = "";
-            
-            // Cargar lista desde localStorage al iniciar
-            loadPlaylist();
-            
-            // Event Listeners
-            addVideoBtn.addEventListener('click', prepareAddVideo);
-            videoUrlInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    prepareAddVideo();
-                }
-            });
-            
-            playButton.addEventListener('click', openCurrentVideo);
-            videoPlaceholder.addEventListener('click', openCurrentVideo);
-            
-            prevBtn.addEventListener('click', playPreviousVideo);
-            nextBtn.addEventListener('click', playNextVideo);
-            saveBtn.addEventListener('click', savePlaylistToStorage);
-            clearBtn.addEventListener('click', clearPlaylist);
-            
-            // Event Listeners del modal
-            closeModal.addEventListener('click', closeVideoModal);
-            cancelModal.addEventListener('click', closeVideoModal);
-            confirmModal.addEventListener('click', confirmAddVideo);
-            
-            // Función para preparar la adición de video
-            function prepareAddVideo() {
-                const url = videoUrlInput.value.trim();
-                if (!url) {
-                    showStatusMessage('Por favor, ingresa un enlace de JW.org', 'error');
-                    return;
-                }
-                
-                // Extraer información del video desde la URL de JW.org
-                const videoInfo = extractJWorgInfo(url);
-                if (!videoInfo || !videoInfo.id) {
-                    showStatusMessage('Por favor, ingresa un enlace válido de JW.org', 'error');
-                    return;
-                }
-                
-                // Guardar la URL pendiente y abrir el modal
-                pendingVideoUrl = url;
-                
-                // Establecer un nombre predeterminado
-                modalVideoName.value = videoInfo.title || `Video JW.org (${videoInfo.id})`;
-                modalVideoComment.value = "";
-                
-                // Mostrar el modal
-                videoModal.style.display = 'flex';
+        class SpiritualStudyApp {
+            constructor() {
+                this.entries = [];
+                this.currentEntry = null;
+                this.currentType = 'video';
+                this.init();
             }
-            
-            // Función para cerrar el modal
-            function closeVideoModal() {
-                videoModal.style.display = 'none';
-                pendingVideoUrl = "";
+
+            init() {
+                this.loadEntriesFromStorage();
+                this.bindEvents();
+                this.updateStats();
+                this.showWelcomeOrEntries();
             }
-            
-            // Función para confirmar y agregar el video
-            function confirmAddVideo() {
-                const name = modalVideoName.value.trim();
-                const comment = modalVideoComment.value.trim();
-                
-                if (!name) {
-                    showStatusMessage('Por favor, ingresa un nombre para el video', 'error');
-                    return;
-                }
-                
-                addVideoToPlaylist(pendingVideoUrl, name, comment);
-                closeVideoModal();
-                
-                // Limpiar el input de URL
-                videoUrlInput.value = '';
-            }
-            
-            // Función para mostrar mensajes de estado
-            function showStatusMessage(message, type) {
-                statusMessage.textContent = message;
-                statusMessage.className = 'status-message ' + type;
-                
-                // Ocultar mensaje después de 3 segundos
-                setTimeout(() => {
-                    statusMessage.style.display = 'none';
-                }, 3000);
-            }
-            
-            // Función para abrir el video actual
-            function openCurrentVideo() {
-                if (currentVideoIndex >= 0 && currentVideoUrl) {
-                    window.open(currentVideoUrl, '_blank');
-                } else {
-                    showStatusMessage('Selecciona un video primero', 'error');
-                }
-            }
-            
-            // Función para extraer información de URLs de JW.org
-            function extractJWorgInfo(url) {
-                try {
-                    const urlObj = new URL(url);
-                    const params = new URLSearchParams(urlObj.search);
-                    
-                    // Para enlaces de finder como: https://www.jw.org/finder?srcid=share&wtlocale=S&lank=pub-jwb-125_4_VIDEO
-                    if (urlObj.hostname.includes('jw.org') && urlObj.pathname.includes('/finder')) {
-                        const lankParam = params.get('lank');
-                        if (lankParam && lankParam.startsWith('pub-')) {
-                            return {
-                                id: lankParam,
-                                title: `Video: ${lankParam.split('-').slice(1).join(' ').replace(/_/g, ' ')}`
-                            };
-                        }
-                    }
-                    
-                    // Para enlaces directos a publicaciones
-                    if (urlObj.hostname.includes('jw.org') && urlObj.pathname.includes('/pub-')) {
-                        const pathParts = urlObj.pathname.split('/');
-                        const pubId = pathParts.find(part => part.startsWith('pub-'));
-                        if (pubId) {
-                            return {
-                                id: pubId,
-                                title: `Video: ${pubId.split('-').slice(1).join(' ').replace(/_/g, ' ')}`
-                            };
-                        }
-                    }
-                    
-                    return null;
-                } catch (e) {
-                    console.error('Error parsing URL:', e);
-                    return null;
-                }
-            }
-            
-            // Función para agregar video a la lista de reproducción
-            function addVideoToPlaylist(url, name, comment) {
-                // Extraer información del video desde la URL de JW.org
-                const videoInfo = extractJWorgInfo(url);
-                if (!videoInfo || !videoInfo.id) {
-                    showStatusMessage('Error: Enlace de JW.org no válido', 'error');
-                    return;
-                }
-                
-                // Verificar si el video ya existe en la lista
-                if (playlist.some(video => video.url === url)) {
-                    showStatusMessage('Este video ya está en la lista', 'error');
-                    return;
-                }
-                
-                playlist.push({ 
-                    videoId: videoInfo.id, 
-                    title: name, 
-                    comment: comment,
-                    url: url 
+
+            bindEvents() {
+                // Formulario
+                document.getElementById('studyForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addEntry();
                 });
-                
-                renderPlaylist();
-                
-                // Si es el primer video, seleccionarlo
-                if (playlist.length === 1) {
-                    currentVideoIndex = 0;
-                    selectVideo(currentVideoIndex);
-                }
-                
-                updateControlButtons();
-                showStatusMessage('Video agregado correctamente', 'success');
-            }
-            
-            // Función para seleccionar un video
-            function selectVideo(index) {
-                if (index < 0 || index >= playlist.length) return;
-                
-                currentVideoIndex = index;
-                const video = playlist[index];
-                currentVideoUrl = video.url;
-                
-                // Actualizar la información del video
-                videoTitle.textContent = video.title;
-                videoDescription.textContent = `ID: ${video.videoId}`;
-                nowPlayingText.textContent = `Seleccionado: ${video.title}`;
-                placeholderText.textContent = `Reproducir: ${video.title}`;
-                
-                // Mostrar comentario si existe
-                if (video.comment) {
-                    commentText.textContent = video.comment;
-                    commentDisplay.style.display = 'block';
-                } else {
-                    commentDisplay.style.display = 'none';
-                }
-                
-                // Actualizar la lista para resaltar el video actual
-                renderPlaylist();
-                updateControlButtons();
-            }
-            
-            // Función para reproducir el video anterior
-            function playPreviousVideo() {
-                if (currentVideoIndex <= 0) return;
-                selectVideo(currentVideoIndex - 1);
-            }
-            
-            // Función para reproducir el siguiente video
-            function playNextVideo() {
-                if (currentVideoIndex >= playlist.length - 1) return;
-                selectVideo(currentVideoIndex + 1);
-            }
-            
-            // Función para renderizar la lista de reproducción
-            function renderPlaylist() {
-                // Limpiar la lista
-                playlistElement.innerHTML = '';
-                
-                if (playlist.length === 0) {
-                    playlistElement.innerHTML = `
-                        <li class="empty-playlist">
-                            <i class="fas fa-film"></i>
-                            <p>La lista de reproducción está vacía</p>
-                            <p>Agrega algunos videos para comenzar</p>
-                        </li>
-                    `;
-                    return;
-                }
-                
-                // Agregar cada video a la lista
-                playlist.forEach((video, index) => {
-                    const li = document.createElement('li');
-                    li.className = 'playlist-item';
-                    if (index === currentVideoIndex) {
-                        li.classList.add('active');
-                    }
-                    
-                    li.innerHTML = `
-                        <div class="video-info-small">
-                            <div class="video-title">${video.title}</div>
-                            <div class="video-id">ID: ${video.videoId}</div>
-                            ${video.comment ? `<div class="video-comment-small">${video.comment}</div>` : ''}
-                        </div>
-                        <div class="playlist-controls">
-                            <button class="control-btn play-btn" data-index="${index}">
-                                <i class="fas fa-play"></i>
-                            </button>
-                            <button class="control-btn delete-btn" data-index="${index}">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    `;
-                    
-                    playlistElement.appendChild(li);
-                });
-                
-                // Agregar event listeners a los botones de la lista
-                document.querySelectorAll('.play-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = parseInt(this.getAttribute('data-index'));
-                        selectVideo(index);
+
+                // Selectores de tipo de estudio
+                document.querySelectorAll('.study-type-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.selectStudyType(e.target.dataset.type);
                     });
                 });
-                
-                document.querySelectorAll('.delete-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = parseInt(this.getAttribute('data-index'));
-                        deleteVideo(index);
-                    });
+
+                // Búsqueda
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    this.searchEntries(e.target.value);
                 });
+
+                // Botones de acción
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportEntries());
+                document.getElementById('importBtn').addEventListener('click', () => this.importEntries());
+                document.getElementById('clearAllBtn').addEventListener('click', () => this.clearAllEntries());
+                document.getElementById('floatingAddBtn').addEventListener('click', () => this.scrollToForm());
             }
-            
-            // Función para eliminar un video de la lista
-            function deleteVideo(index) {
-                playlist.splice(index, 1);
+
+            selectStudyType(type) {
+                this.currentType = type;
                 
-                // Ajustar el índice actual si es necesario
-                if (currentVideoIndex >= index) {
-                    currentVideoIndex--;
-                }
-                
-                // Si eliminamos el video actual, seleccionar el siguiente o limpiar
-                if (index === currentVideoIndex) {
-                    if (playlist.length > 0) {
-                        selectVideo(Math.min(currentVideoIndex, playlist.length - 1));
-                    } else {
-                        currentVideoIndex = -1;
-                        currentVideoUrl = "";
-                        videoTitle.textContent = 'Selecciona un video de la lista';
-                        videoDescription.textContent = 'Los videos que agregues aparecerán aquí';
-                        nowPlayingText.textContent = 'No hay video seleccionado';
-                        placeholderText.textContent = 'Haz clic para reproducir el video';
-                        commentDisplay.style.display = 'none';
-                    }
-                }
-                
-                renderPlaylist();
-                updateControlButtons();
-                showStatusMessage('Video eliminado de la lista', 'success');
-            }
-            
-            // Función para actualizar el estado de los botones de control
-            function updateControlButtons() {
-                prevBtn.disabled = currentVideoIndex <= 0;
-                nextBtn.disabled = currentVideoIndex >= playlist.length - 1;
-            }
-            
-            // Función para guardar la lista en localStorage
-            function savePlaylistToStorage() {
-                try {
-                    localStorage.setItem('jwPlaylist', JSON.stringify(playlist));
-                    showStatusMessage('Lista guardada correctamente en el almacenamiento local', 'success');
-                } catch (e) {
-                    showStatusMessage('Error al guardar la lista: ' + e.message, 'error');
+                // Actualizar botones
+                document.querySelectorAll('.study-type-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-type="${type}"]`).classList.add('active');
+
+                // Mostrar/ocultar campos según el tipo
+                const urlGroup = document.getElementById('urlGroup');
+                const scriptureGroup = document.getElementById('scriptureGroup');
+                const urlInput = document.getElementById('studyUrl');
+                const scriptureInput = document.getElementById('scriptureRef');
+
+                if (type === 'bible') {
+                    urlGroup.style.display = 'none';
+                    scriptureGroup.style.display = 'block';
+                    urlInput.required = false;
+                    scriptureInput.required = true;
+                } else if (type === 'personal') {
+                    urlGroup.style.display = 'none';
+                    scriptureGroup.style.display = 'none';
+                    urlInput.required = false;
+                    scriptureInput.required = false;
+                } else {
+                    urlGroup.style.display = 'block';
+                    scriptureGroup.style.display = 'none';
+                    urlInput.required = true;
+                    scriptureInput.required = false;
                 }
             }
-            
-            // Función para cargar la lista desde localStorage
-            function loadPlaylist() {
-                try {
-                    const savedPlaylist = localStorage.getItem('jwPlaylist');
-                    if (savedPlaylist) {
-                        playlist = JSON.parse(savedPlaylist);
-                        renderPlaylist();
-                        updateControlButtons();
-                        
-                        // Seleccionar el último video visto si existe
-                        if (playlist.length > 0) {
-                            const lastVideoIndex = localStorage.getItem('lastJWVideoIndex');
-                            if (lastVideoIndex !== null) {
-                                selectVideo(parseInt(lastVideoIndex));
+
+            addEntry() {
+                const formData = {
+                    id: Date.now(),
+                    type: this.currentType,
+                    title: document.getElementById('studyTitle').value.trim(),
+                    url: document.getElementById('studyUrl').value.trim(),
+                    scriptureRef: document.getElementById('scriptureRef').value.trim(),
+                    keyText: document.getElementById('keyText').value.trim(),
+                    personalReflection: document.getElementById('personalReflection').value.trim(),
+                    practicalApplication: document.getElementById('practicalApplication').value.trim(),
+                    tags: document.getElementById('studyTags').value.trim().split(',').map(tag => tag.trim()).filter(tag => tag),
+                    createdAt: new Date().toISOString(),
+                    lastModified: new Date().toISOString()
+                };
+
+                if (!formData.title || !formData.personalReflection) {
+                    this.showNotification('Por favor completa al menos el título y tu reflexión personal', 'error');
+                    return;
+                }
+
+                this.entries.unshift(formData);
+                this.saveEntriesToStorage();
+                this.renderEntries();
+                this.updateStats();
+                this.clearForm();
+                this.showWelcomeOrEntries();
+                
+                this.showNotification(`✨ Estudio "${formData.title}" guardado exitosamente!`);
+            }
+
+            clearForm() {
+                document.getElementById('studyForm').reset();
+                this.selectStudyType('video');
+            }
+
+            renderEntries(filteredEntries = null) {
+                const container = document.getElementById('entriesContainer');
+                const entries = filteredEntries || this.entries;
+
+                if (entries.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <h3>No hay estudios aún</h3>
+                            <p>¡Comienza agregando tu primer estudio espiritual!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = entries.map(entry => `
+                    <div class="entry-card" onclick="app.viewEntry(${entry.id})">
+                        <div class="entry-header">
+                            <div class="entry-type">${this.getTypeIcon(entry.type)} ${this.getTypeName(entry.type)}</div>
+                            <div class="entry-date">${this.formatDate(entry.createdAt)}</div>
+                        </div>
+                        <div class="entry-title">${entry.title}</div>
+                        <div class="entry-preview">${entry.personalReflection}</div>
+                        ${entry.tags.length > 0 ? `
+                            <div class="entry-tags">
+                                ${entry.tags.map(tag => `<span class="entry-tag">#${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+            }
+
+            viewEntry(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                this.currentEntry = entry;
+                this.showDetailedView(entry);
+            }
+
+            showDetailedView(entry) {
+                const detailView = document.getElementById('detailedView');
+                const entriesContainer = document.getElementById('entriesContainer');
+                const welcomeView = document.getElementById('welcomeView');
+
+                welcomeView.style.display = 'none';
+                entriesContainer.style.display = 'none';
+                detailView.classList.add('active');
+
+                detailView.innerHTML = `
+                    <div class="detail-header">
+                        <div class="detail-title">${entry.title}</div>
+                        <div class="detail-meta">
+                            <div class="entry-type">${this.getTypeIcon(entry.type)} ${this.getTypeName(entry.type)}</div>
+                            <div class="entry-date">📅 ${this.formatDate(entry.createdAt)}</div>
+                            ${entry.tags.length > 0 ? `
+                                <div class="entry-tags">
+                                    ${entry.tags.map(tag => `<span class="entry-tag">#${tag}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    ${entry.url ? `
+                        <div class="detail-section">
+                            <h3>🔗 Fuente</h3>
+                            <div class="detail-content">
+                                <a href="${entry.url}" target="_blank" style="color: #4f46e5; text-decoration: none; font-weight: 600;">
+                                    🚀 Abrir en JW.org
+                                </a>
+                                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary); word-break: break-all;">
+                                    ${entry.url}
+                                </p>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${entry.scriptureRef ? `
+                        <div class="detail-section">
+                            <h3>📖 Referencia Bíblica</h3>
+                            <div class="scripture-reference">
+                                ${entry.scriptureRef}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${entry.keyText ? `
+                        <div class="detail-section">
+                            <h3>💎 Texto Clave</h3>
+                            <div class="detail-content">
+                                <em>"${entry.keyText}"</em>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="detail-section">
+                        <h3>💭 Mi Reflexión Personal</h3>
+                        <div class="reflection-text">
+                            ${entry.personalReflection.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>
+
+                    ${entry.practicalApplication ? `
+                        <div class="detail-section">
+                            <h3>🎯 Aplicación Práctica</h3>
+                            <div class="detail-content">
+                                ${entry.practicalApplication.replace(/\n/g, '<br>')}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary btn-small" onclick="app.backToList()">
+                            ← Volver a la lista
+                        </button>
+                        <button class="btn btn-success btn-small" onclick="app.editEntry(${entry.id})">
+                            ✏️ Editar
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="app.duplicateEntry(${entry.id})">
+                            📋 Duplicar
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="app.exportSingle(${entry.id})">
+                            📤 Exportar
+                        </button>
+                        <button class="btn btn-danger btn-small" onclick="app.deleteEntry(${entry.id})">
+                            🗑️ Eliminar
+                        </button>
+                    </div>
+                `;
+            }
+
+            backToList() {
+                document.getElementById('detailedView').classList.remove('active');
+                this.showWelcomeOrEntries();
+            }
+
+            editEntry(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                // Llenar el formulario con los datos existentes
+                this.selectStudyType(entry.type);
+                document.getElementById('studyTitle').value = entry.title;
+                document.getElementById('studyUrl').value = entry.url || '';
+                document.getElementById('scriptureRef').value = entry.scriptureRef || '';
+                document.getElementById('keyText').value = entry.keyText || '';
+                document.getElementById('personalReflection').value = entry.personalReflection;
+                document.getElementById('practicalApplication').value = entry.practicalApplication || '';
+                document.getElementById('studyTags').value = entry.tags.join(', ');
+
+                // Eliminar la entrada existente
+                this.entries = this.entries.filter(e => e.id !== id);
+                this.saveEntriesToStorage();
+                this.updateStats();
+                
+                // Volver al formulario
+                this.backToList();
+                this.scrollToForm();
+                
+                this.showNotification('📝 Estudio cargado para edición', 'warning');
+            }
+
+            duplicateEntry(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                const duplicatedEntry = {
+                    ...entry,
+                    id: Date.now(),
+                    title: `${entry.title} (Copia)`,
+                    createdAt: new Date().toISOString(),
+                    lastModified: new Date().toISOString()
+                };
+
+                this.entries.unshift(duplicatedEntry);
+                this.saveEntriesToStorage();
+                this.updateStats();
+                this.backToList();
+
+                this.showNotification(`📋 Estudio "${entry.title}" duplicado exitosamente`);
+            }
+
+            deleteEntry(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                if (confirm(`¿Estás seguro de que quieres eliminar "${entry.title}"?\n\nEsta acción no se puede deshacer.`)) {
+                    this.entries = this.entries.filter(e => e.id !== id);
+                    this.saveEntriesToStorage();
+                    this.updateStats();
+                    this.backToList();
+                    
+                    this.showNotification(`🗑️ Estudio "${entry.title}" eliminado`, 'error');
+                }
+            }
+
+            exportSingle(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                const exportData = {
+                    metadata: {
+                        exportDate: new Date().toISOString(),
+                        version: "1.0",
+                        type: "single_entry"
+                    },
+                    entry: entry
+                };
+
+                this.downloadJson(exportData, `estudio-${entry.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`);
+                this.showNotification('📤 Estudio exportado exitosamente');
+            }
+
+            searchEntries(query) {
+                if (!query.trim()) {
+                    this.renderEntries();
+                    return;
+                }
+
+                const filtered = this.entries.filter(entry => 
+                    entry.title.toLowerCase().includes(query.toLowerCase()) ||
+                    entry.personalReflection.toLowerCase().includes(query.toLowerCase()) ||
+                    entry.keyText.toLowerCase().includes(query.toLowerCase()) ||
+                    entry.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
+                    entry.scriptureRef.toLowerCase().includes(query.toLowerCase())
+                );
+
+                this.renderEntries(filtered);
+            }
+
+            showWelcomeOrEntries() {
+                const welcomeView = document.getElementById('welcomeView');
+                const entriesContainer = document.getElementById('entriesContainer');
+                const detailView = document.getElementById('detailedView');
+
+                detailView.classList.remove('active');
+
+                if (this.entries.length === 0) {
+                    welcomeView.style.display = 'block';
+                    entriesContainer.style.display = 'none';
+                } else {
+                    welcomeView.style.display = 'none';
+                    entriesContainer.style.display = 'block';
+                    this.renderEntries();
+                }
+            }
+
+            updateStats() {
+                document.getElementById('totalEntries').textContent = this.entries.length;
+                
+                const currentMonth = new Date().getMonth();
+                const currentYear = new Date().getFullYear();
+                const thisMonthCount = this.entries.filter(entry => {
+                    const entryDate = new Date(entry.createdAt);
+                    return entryDate.getMonth() === currentMonth && entryDate.getFullYear() === currentYear;
+                }).length;
+                
+                document.getElementById('thisMonth').textContent = thisMonthCount;
+            }
+
+            exportEntries() {
+                if (this.entries.length === 0) {
+                    this.showNotification('No hay estudios para exportar', 'error');
+                    return;
+                }
+
+                const exportData = {
+                    metadata: {
+                        exportDate: new Date().toISOString(),
+                        version: "1.0",
+                        totalEntries: this.entries.length,
+                        appName: "Diario de Estudio Espiritual"
+                    },
+                    entries: this.entries
+                };
+
+                this.downloadJson(exportData, 'mi-diario-espiritual');
+                this.showNotification(`📤 ${this.entries.length} estudios exportados exitosamente`);
+            }
+
+            importEntries() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const data = JSON.parse(e.target.result);
+                                let importedEntries = [];
+
+                                if (data.entries && Array.isArray(data.entries)) {
+                                    importedEntries = data.entries;
+                                } else if (data.entry) {
+                                    importedEntries = [data.entry];
+                                } else if (Array.isArray(data)) {
+                                    importedEntries = data;
+                                }
+
+                                if (importedEntries.length > 0) {
+                                    const confirmMsg = `¿Quieres importar ${importedEntries.length} estudio(s)?\n\nEsto se agregará a tus estudios existentes.`;
+                                    if (confirm(confirmMsg)) {
+                                        this.entries = [...importedEntries, ...this.entries];
+                                        this.saveEntriesToStorage();
+                                        this.updateStats();
+                                        this.showWelcomeOrEntries();
+                                        this.showNotification(`📥 ${importedEntries.length} estudio(s) importado(s) exitosamente`);
+                                    }
+                                } else {
+                                    throw new Error('No se encontraron estudios válidos');
+                                }
+                            } catch (error) {
+                                this.showNotification('Error al importar. Archivo no válido.', 'error');
                             }
-                        }
+                        };
+                        reader.readAsText(file);
                     }
-                } catch (e) {
-                    showStatusMessage('Error al cargar la lista: ' + e.message, 'error');
+                };
+                input.click();
+            }
+
+            clearAllEntries() {
+                if (this.entries.length === 0) {
+                    this.showNotification('No hay estudios para eliminar', 'error');
+                    return;
+                }
+
+                const confirmMsg = `¿Estás COMPLETAMENTE SEGURO de que quieres eliminar TODOS tus ${this.entries.length} estudios?\n\n⚠️ ESTA ACCIÓN NO SE PUEDE DESHACER ⚠️\n\nRecomendamos exportar primero como respaldo.`;
+                
+                if (confirm(confirmMsg)) {
+                    this.entries = [];
+                    this.saveEntriesToStorage();
+                    this.updateStats();
+                    this.showWelcomeOrEntries();
+                    document.getElementById('searchInput').value = '';
+                    this.showNotification('🗑️ Todos los estudios han sido eliminados', 'error');
                 }
             }
-            
-            // Función para limpiar la lista
-            function clearPlaylist() {
-                if (confirm('¿Estás seguro de que quieres limpiar la lista de reproducción?')) {
-                    playlist = [];
-                    currentVideoIndex = -1;
-                    currentVideoUrl = "";
-                    renderPlaylist();
-                    updateControlButtons();
-                    
-                    try {
-                        localStorage.removeItem('jwPlaylist');
-                        localStorage.removeItem('lastJWVideoIndex');
-                        showStatusMessage('Lista limpiada correctamente', 'success');
-                        
-                        // Restablecer la información del video
-                        videoTitle.textContent = 'Selecciona un video de la lista';
-                        videoDescription.textContent = 'Los videos que agregues aparecerán aquí';
-                        nowPlayingText.textContent = 'No hay video seleccionado';
-                        placeholderText.textContent = 'Haz clic para reproducir el video';
-                        commentDisplay.style.display = 'none';
-                    } catch (e) {
-                        showStatusMessage('Error al limpiar la lista: ' + e.message, 'error');
-                    }
+
+            scrollToForm() {
+                document.querySelector('.sidebar').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            downloadJson(data, filename) {
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${filename}-${new Date().getTime()}.json`;
+                link.click();
+                URL.revokeObjectURL(url);
+            }
+
+            saveEntriesToStorage() {
+                try {
+                    window.studyAppData = {
+                        entries: this.entries,
+                        lastSaved: new Date().toISOString()
+                    };
+                } catch (error) {
+                    console.warn('No se pudo guardar en el almacenamiento local');
                 }
             }
-            
-            // Guardar el índice del video actual antes de cerrar la página
-            window.addEventListener('beforeunload', function() {
-                if (currentVideoIndex >= 0) {
-                    localStorage.setItem('lastJWVideoIndex', currentVideoIndex);
+
+            loadEntriesFromStorage() {
+                try {
+                    const data = window.studyAppData;
+                    if (data && data.entries) {
+                        this.entries = data.entries;
+                    }
+                } catch (error) {
+                    console.warn('No se pudo cargar desde el almacenamiento local');
+                    this.entries = [];
                 }
-            });
-            
-            // Ejemplo de videos predefinidos
-            const exampleVideos = [
+            }
+
+            getTypeIcon(type) {
+                const icons = {
+                    video: '🎬',
+                    publication: '📚',
+                    bible: '📖',
+                    personal: '💭'
+                };
+                return icons[type] || '📝';
+            }
+
+            getTypeName(type) {
+                const names = {
+                    video: 'Video',
+                    publication: 'Publicación',
+                    bible: 'Biblia',
+                    personal: 'Personal'
+                };
+                return names[type] || 'Estudio';
+            }
+
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                const now = new Date();
+                const diffTime = Math.abs(now - date);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                if (diffDays === 1) {
+                    return 'Hoy';
+                } else if (diffDays === 2) {
+                    return 'Ayer';
+                } else if (diffDays <= 7) {
+                    return `Hace ${diffDays - 1} días`;
+                } else {
+                    return date.toLocaleDateString('es-ES', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+                }
+            }
+
+            showNotification(message, type = 'success') {
+                const notification = document.getElementById('notification');
+                const messageEl = document.getElementById('notificationMessage');
+                
+                messageEl.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 4000);
+            }
+        }
+
+        // Inicializar la aplicación
+        const app = new SpiritualStudyApp();
+
+        // Agregar algunos estudios de ejemplo si no hay datos
+        if (app.entries.length === 0) {
+            // Comentar o eliminar esta sección después de las primeras pruebas
+            const exampleEntries = [
                 {
-                    videoId: "pub-jwb-125_4_VIDEO",
-                    title: "¿Por qué bautizó Jesús a sus discípulos?",
-                    comment: "Un video interesante sobre el bautismo en la época de Jesús",
-                    url: "https://www.jw.org/finder?srcid=jwlshare&wtlocale=S&lank=pub-jwb-125_4_VIDEO"
+                    id: Date.now() - 1000,
+                    type: 'bible',
+                    title: 'La importancia de la paciencia',
+                    scriptureRef: 'Santiago 1:2-4',
+                    keyText: 'Considérenlo todo gozo, hermanos míos, cuando se encuentren con diversas pruebas, sabiendo que esta cualidad probada de su fe obra aguante.',
+                    personalReflection: 'Este texto me ayuda a entender que las pruebas no son algo negativo, sino oportunidades para crecer espiritualmente. La paciencia no es solo esperar, sino mantener una actitud positiva durante las dificultades.',
+                    practicalApplication: 'Cuando enfrente situaciones estresantes esta semana, voy a recordar este texto y buscar la oportunidad de aprendizaje en lugar de frustrarme.',
+                    tags: ['paciencia', 'pruebas', 'crecimiento', 'fe'],
+                    createdAt: new Date(Date.now() - 86400000).toISOString(),
+                    lastModified: new Date(Date.now() - 86400000).toISOString()
                 }
             ];
             
-            // Agregar videos de ejemplo si la lista está vacía
-            if (playlist.length === 0) {
-                exampleVideos.forEach(video => {
-                    playlist.push(video);
-                });
-                renderPlaylist();
-                updateControlButtons();
-            }
-        });
+            // Descomenta las siguientes líneas si quieres ver el ejemplo
+            // app.entries = exampleEntries;
+            // app.saveEntriesToStorage();
+            // app.updateStats();
+            // app.showWelcomeOrEntries();
+        }
     </script>
 </body>
 </html>
