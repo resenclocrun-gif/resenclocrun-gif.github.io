@@ -702,9 +702,21 @@
                     <button class="btn btn-secondary" id="importBtn">
                         📥 Importar Estudios
                     </button>
+                    <button class="btn btn-secondary" id="backupBtn">
+                        💾 Crear Respaldo
+                    </button>
                     <button class="btn btn-danger" id="clearAllBtn">
                         🗑️ Limpiar Todo
                     </button>
+                </div>
+
+                <div class="info-box" style="font-size: 12px; padding: 12px; margin-bottom: 15px;">
+                    <div class="info-box-title" style="font-size: 13px;">
+                        💾 Almacenamiento Local
+                    </div>
+                    <div class="info-box-content">
+                        Tus estudios se guardan automáticamente en tu navegador y permanecerán disponibles incluso después de cerrar la página.
+                    </div>
                 </div>
 
                 <div class="stats-grid">
@@ -802,6 +814,7 @@
                 // Botones de acción
                 document.getElementById('exportBtn').addEventListener('click', () => this.exportEntries());
                 document.getElementById('importBtn').addEventListener('click', () => this.importEntries());
+                document.getElementById('backupBtn').addEventListener('click', () => this.createBackup());
                 document.getElementById('clearAllBtn').addEventListener('click', () => this.clearAllEntries());
                 document.getElementById('floatingAddBtn').addEventListener('click', () => this.scrollToForm());
             }
@@ -1134,6 +1147,27 @@
                 document.getElementById('thisMonth').textContent = thisMonthCount;
             }
 
+            createBackup() {
+                if (this.entries.length === 0) {
+                    this.showNotification('No hay estudios para respaldar', 'error');
+                    return;
+                }
+
+                const backupData = {
+                    metadata: {
+                        backupDate: new Date().toISOString(),
+                        version: "1.0",
+                        totalEntries: this.entries.length,
+                        appName: "Diario de Estudio Espiritual",
+                        backupType: "full_backup"
+                    },
+                    entries: this.entries
+                };
+
+                this.downloadJson(backupData, 'respaldo-diario-espiritual');
+                this.showNotification(`💾 Respaldo creado con ${this.entries.length} estudios`);
+            }
+
             exportEntries() {
                 if (this.entries.length === 0) {
                     this.showNotification('No hay estudios para exportar', 'error');
@@ -1206,12 +1240,19 @@
                 const confirmMsg = `¿Estás COMPLETAMENTE SEGURO de que quieres eliminar TODOS tus ${this.entries.length} estudios?\n\n⚠️ ESTA ACCIÓN NO SE PUEDE DESHACER ⚠️\n\nRecomendamos exportar primero como respaldo.`;
                 
                 if (confirm(confirmMsg)) {
+                    // Limpiar tanto la memoria como el localStorage
                     this.entries = [];
-                    this.saveEntriesToStorage();
+                    try {
+                        localStorage.removeItem('spiritualStudyApp');
+                        console.log('🗑️ Datos eliminados del localStorage');
+                    } catch (error) {
+                        console.error('Error al limpiar localStorage:', error);
+                    }
+                    
                     this.updateStats();
                     this.showWelcomeOrEntries();
                     document.getElementById('searchInput').value = '';
-                    this.showNotification('🗑️ Todos los estudios han sido eliminados', 'error');
+                    this.showNotification('🗑️ Todos los estudios han sido eliminados permanentemente', 'error');
                 }
             }
 
@@ -1235,24 +1276,46 @@
 
             saveEntriesToStorage() {
                 try {
-                    window.studyAppData = {
+                    const data = {
                         entries: this.entries,
-                        lastSaved: new Date().toISOString()
+                        lastSaved: new Date().toISOString(),
+                        version: "1.0"
                     };
+                    localStorage.setItem('spiritualStudyApp', JSON.stringify(data));
+                    console.log('✅ Datos guardados en localStorage:', this.entries.length, 'estudios');
                 } catch (error) {
-                    console.warn('No se pudo guardar en el almacenamiento local');
+                    console.error('❌ Error al guardar en localStorage:', error);
+                    this.showNotification('Error al guardar datos localmente', 'error');
                 }
             }
 
             loadEntriesFromStorage() {
                 try {
-                    const data = window.studyAppData;
-                    if (data && data.entries) {
-                        this.entries = data.entries;
+                    const savedData = localStorage.getItem('spiritualStudyApp');
+                    if (savedData) {
+                        const data = JSON.parse(savedData);
+                        if (data && data.entries && Array.isArray(data.entries)) {
+                            this.entries = data.entries;
+                            console.log('✅ Datos cargados desde localStorage:', this.entries.length, 'estudios');
+                            
+                            // Mostrar mensaje de bienvenida si hay datos guardados
+                            if (this.entries.length > 0) {
+                                setTimeout(() => {
+                                    this.showNotification(`📚 ${this.entries.length} estudios cargados desde tu almacenamiento local`);
+                                }, 1000);
+                            }
+                        } else {
+                            console.log('📝 No hay datos válidos en localStorage');
+                            this.entries = [];
+                        }
+                    } else {
+                        console.log('📝 No hay datos guardados en localStorage');
+                        this.entries = [];
                     }
                 } catch (error) {
-                    console.warn('No se pudo cargar desde el almacenamiento local');
+                    console.error('❌ Error al cargar desde localStorage:', error);
                     this.entries = [];
+                    this.showNotification('Error al cargar datos locales', 'warning');
                 }
             }
 
