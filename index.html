@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📖 Mi Diario de Estudio Espiritual</title>
+    <title>Cronología de los Últimos Días - JW.org</title>
     <style>
         * {
             margin: 0;
@@ -11,354 +11,71 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #4f46e5, #7c3aed);
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --bg-light: #f8fafc;
-            --bg-white: #ffffff;
-            --border-color: #e2e8f0;
-            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--primary-gradient);
-            min-height: 100vh;
-            padding: 20px;
-            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
             line-height: 1.6;
         }
 
-        .app-container {
-            max-width: 1400px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 30px;
-            height: calc(100vh - 40px);
-        }
-
-        .sidebar {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: var(--shadow-heavy);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .main-content {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: var(--shadow-heavy);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            padding: 20px;
         }
 
         .header {
-            background: var(--secondary-gradient);
+            text-align: center;
             color: white;
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 15px,
-                rgba(255, 255, 255, 0.03) 15px,
-                rgba(255, 255, 255, 0.03) 30px
-            );
-            animation: shimmer 25s linear infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%); }
-            100% { transform: translateX(100%) translateY(100%); }
+            margin-bottom: 30px;
         }
 
         .header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .header p {
+            font-size: 1.2rem;
             opacity: 0.9;
-            position: relative;
-            z-index: 1;
-            font-size: 0.95rem;
         }
 
-        .sidebar-content {
-            padding: 25px;
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .main-header {
-            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            padding: 25px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .main-body {
-            flex: 1;
-            padding: 25px;
-            overflow-y: auto;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 20px;
+        .nav-tabs {
             display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            background: var(--bg-white);
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .textarea-field {
-            resize: vertical;
-            min-height: 120px;
-            font-family: inherit;
-            line-height: 1.6;
-        }
-
-        .btn {
-            background: var(--secondary-gradient);
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 5px;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .btn:active {
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #6b7280, #4b5563);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, var(--success-color), #059669);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger-color), #dc2626);
-        }
-
-        .btn-small {
-            padding: 8px 12px;
-            font-size: 12px;
-            width: auto;
-            margin-bottom: 0;
-        }
-
-        .study-type-selector {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .study-type-btn {
-            padding: 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            background: var(--bg-white);
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s ease;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .study-type-btn:hover {
-            border-color: #4f46e5;
-            transform: translateY(-2px);
-        }
-
-        .study-type-btn.active {
-            background: #4f46e5;
+        .tab-button {
+            background: none;
+            border: none;
             color: white;
-            border-color: #4f46e5;
-        }
-
-        .entries-container {
-            max-height: calc(100vh - 300px);
-            overflow-y: auto;
-        }
-
-        .entry-card {
-            background: var(--bg-white);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
+            padding: 12px 25px;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .entry-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--secondary-gradient);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .entry-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-medium);
-            border-color: #4f46e5;
-        }
-
-        .entry-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .entry-card.active {
-            border-color: #4f46e5;
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .entry-header {
-            display: flex;
-            justify-content: between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-            gap: 10px;
-        }
-
-        .entry-type {
-            background: var(--secondary-gradient);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .entry-date {
-            font-size: 11px;
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-
-        .entry-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .entry-preview {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .entry-tags {
-            display: flex;
-            gap: 6px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .entry-tag {
-            background: var(--bg-light);
-            color: var(--text-secondary);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 10px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
             font-weight: 500;
         }
 
-        .detailed-view {
-            display: none;
-            animation: fadeIn 0.4s ease;
+        .tab-button.active {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
         }
 
-        .detailed-view.active {
+        .tab-button:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
             display: block;
         }
 
@@ -367,1039 +84,837 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .detail-header {
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+        .timeline-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
 
-        .detail-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 15px;
-        }
-
-        .detail-meta {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .detail-content {
-            background: var(--bg-light);
-            padding: 25px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 25px;
-        }
-
-        .detail-section {
-            margin-bottom: 25px;
-        }
-
-        .detail-section h3 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .scripture-reference {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border-left: 4px solid var(--warning-color);
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin: 15px 0;
-            font-style: italic;
-        }
-
-        .reflection-text {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            border-left: 4px solid #0ea5e9;
-            padding: 20px;
-            border-radius: 12px;
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            background: var(--bg-white);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #4f46e5;
-            display: block;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .search-box {
+        .timeline {
             position: relative;
-            margin-bottom: 20px;
+            padding: 20px 0;
         }
 
-        .search-input {
-            padding-left: 45px;
-        }
-
-        .search-icon {
+        .timeline::before {
+            content: '';
             position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            font-size: 1.1rem;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            transform: translateX(-50%);
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
+        .timeline-item {
+            position: relative;
+            margin: 30px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .empty-state-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0.6;
+        .timeline-item:hover {
+            transform: scale(1.02);
         }
 
-        .welcome-view {
-            text-align: center;
-            padding: 60px 40px;
+        .timeline-item.left {
+            padding-right: calc(50% + 30px);
+            text-align: right;
         }
 
-        .welcome-icon {
-            font-size: 5rem;
-            margin-bottom: 25px;
-            background: var(--secondary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .timeline-item.right {
+            padding-left: calc(50% + 30px);
+            text-align: left;
         }
 
-        .welcome-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .welcome-text {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 500px;
-            margin: 0 auto 30px;
-        }
-
-        .notification {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: var(--success-color);
+        .timeline-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-medium);
-            transform: translateX(400px);
-            transition: transform 0.4s ease;
+            padding: 20px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .timeline-item.established .timeline-content {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .timeline-item.future .timeline-content {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content .year {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: #ffd700;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .timeline-item.left .timeline-dot {
+            right: calc(50% - 10px);
+        }
+
+        .timeline-item.right .timeline-dot {
+            left: calc(50% - 10px);
+        }
+
+        .concept-map {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .concept-node {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+            margin: 10px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .concept-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .concept-node.central {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-option {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .quiz-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .quiz-option.incorrect {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+
+        .quiz-feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(56, 239, 125, 0.1);
+            color: #11998e;
+            border: 2px solid #38ef7d;
+        }
+
+        .quiz-feedback.incorrect {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ee5a6f;
+            border: 2px solid #ff6b6b;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            border-radius: 5px;
+            transition: width 1s ease;
+            width: 0%;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        .legend-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.established {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .legend-dot.future {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
             z-index: 1000;
-            font-weight: 600;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
         }
 
-        .notification.show {
-            transform: translateX(0);
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
         }
 
-        .notification.error {
-            background: var(--danger-color);
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
         }
 
-        .notification.warning {
-            background: var(--warning-color);
-        }
-
-        @media (max-width: 1024px) {
-            .app-container {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-            
-            .sidebar {
-                order: 2;
-            }
-            
-            .main-content {
-                order: 1;
-                min-height: 70vh;
-            }
+        .close-modal:hover {
+            color: #333;
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
+            .timeline::before {
+                left: 20px;
             }
-            
-            .app-container {
-                gap: 20px;
+
+            .timeline-item {
+                padding-left: 50px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
             }
-            
-            .study-type-selector {
-                grid-template-columns: 1fr;
+
+            .timeline-dot {
+                left: 10px !important;
+                right: auto !important;
             }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .detail-meta {
+
+            .nav-tabs {
                 flex-direction: column;
-                align-items: flex-start;
+                border-radius: 15px;
             }
-        }
 
-        .floating-add-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: var(--secondary-gradient);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow-heavy);
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .floating-add-btn:hover {
-            transform: scale(1.1) translateY(-3px);
-        }
-
-        /* Scrollbars personalizados */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-light);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4f46e5;
+            .tab-button {
+                border-radius: 10px;
+                margin: 2px 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="header">
-                <h1>📖 Mi Diario Espiritual</h1>
-                <p>Tu compañero de estudio y reflexión</p>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ Cronología de los Últimos Días</h1>
+            <p>Según las Fuentes de JW.org - Comprensión Visual e Interactiva</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('timeline')">📅 Línea de Tiempo</button>
+            <button class="tab-button" onclick="showTab('conceptmap')">🗺️ Mapa Conceptual</button>
+            <button class="tab-button" onclick="showTab('quiz')">❓ Preguntas</button>
+        </div>
+
+        <!-- Timeline Tab -->
+        <div id="timeline" class="tab-content active">
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot established"></div>
+                    <span>Acontecimientos Establecidos</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot future"></div>
+                    <span>Acontecimientos Futuros</span>
+                </div>
             </div>
             
-            <div class="sidebar-content">
-                <div class="section-title">
-                    ✨ Nueva Entrada
+            <div class="timeline-container">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Cronología Completa</h2>
+                <div class="timeline" id="mainTimeline">
+                    <!-- Timeline items will be populated by JavaScript -->
                 </div>
+            </div>
 
-                <div class="study-type-selector">
-                    <div class="study-type-btn active" data-type="video">
-                        🎬 Video
-                    </div>
-                    <div class="study-type-btn" data-type="publication">
-                        📚 Publicación
-                    </div>
-                    <div class="study-type-btn" data-type="bible">
-                        📖 Biblia
-                    </div>
-                    <div class="study-type-btn" data-type="personal">
-                        💭 Personal
-                    </div>
-                </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p style="text-align: center; color: white; margin-top: 10px;">
+                Progreso en la Cronología de los Últimos Días
+            </p>
+        </div>
 
-                <form id="studyForm">
-                    <div class="input-group">
-                        <label class="input-label">Título de tu estudio</label>
-                        <input type="text" class="input-field" id="studyTitle" placeholder="Ej: Reflexión sobre la paciencia" required>
-                    </div>
-
-                    <div class="input-group" id="urlGroup">
-                        <label class="input-label">URL (Video/Publicación)</label>
-                        <input type="url" class="input-field" id="studyUrl" placeholder="https://www.jw.org/...">
-                    </div>
-
-                    <div class="input-group" id="scriptureGroup" style="display: none;">
-                        <label class="input-label">Referencia Bíblica</label>
-                        <input type="text" class="input-field" id="scriptureRef" placeholder="Ej: Salmo 23:1-6">
-                    </div>
-
-                    <div class="input-group">
-                        <label class="input-label">Texto clave o cita</label>
-                        <textarea class="input-field textarea-field" id="keyText" placeholder="Escribe aquí el texto o versículo que te llamó la atención..."></textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <label class="input-label">Tu reflexión personal</label>
-                        <textarea class="input-field textarea-field" id="personalReflection" placeholder="¿Qué aprendiste? ¿Cómo lo aplicarás en tu vida? ¿Qué sentiste al estudiar esto?" required style="min-height: 150px;"></textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <label class="input-label">Aplicación práctica</label>
-                        <textarea class="input-field textarea-field" id="practicalApplication" placeholder="¿Cómo vas a aplicar esto en tu vida diaria? ¿Qué cambios harás?"></textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <label class="input-label">Etiquetas (separadas por comas)</label>
-                        <input type="text" class="input-field" id="studyTags" placeholder="paciencia, amor, fe, oración">
-                    </div>
-
-                    <button type="submit" class="btn btn-success">
-                        💾 Guardar Estudio
-                    </button>
-                </form>
-
-                <div style="margin: 25px 0; border-top: 1px solid var(--border-color); padding-top: 20px;">
-                    <button class="btn btn-secondary" id="exportBtn">
-                        📤 Exportar Todo
-                    </button>
-                    <button class="btn btn-secondary" id="importBtn">
-                        📥 Importar Estudios
-                    </button>
-                    <button class="btn btn-secondary" id="backupBtn">
-                        💾 Crear Respaldo
-                    </button>
-                    <button class="btn btn-danger" id="clearAllBtn">
-                        🗑️ Limpiar Todo
-                    </button>
-                </div>
-
-                <div class="info-box" style="font-size: 12px; padding: 12px; margin-bottom: 15px;">
-                    <div class="info-box-title" style="font-size: 13px;">
-                        💾 Almacenamiento Local
-                    </div>
-                    <div class="info-box-content">
-                        Tus estudios se guardan automáticamente en tu navegador y permanecerán disponibles incluso después de cerrar la página.
-                    </div>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number" id="totalEntries">0</span>
-                        <span class="stat-label">Estudios</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="thisMonth">0</span>
-                        <span class="stat-label">Este mes</span>
-                    </div>
+        <!-- Concept Map Tab -->
+        <div id="conceptmap" class="tab-content">
+            <div class="concept-map">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">Mapa Conceptual de los Últimos Días</h2>
+                <div id="conceptMapContainer">
+                    <!-- Concept map will be populated by JavaScript -->
                 </div>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <div class="main-header">
-                <div class="search-box">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" class="input-field search-input" id="searchInput" placeholder="Buscar en tus estudios...">
-                </div>
-            </div>
-            
-            <div class="main-body">
-                <!-- Vista de bienvenida -->
-                <div class="welcome-view" id="welcomeView">
-                    <div class="welcome-icon">📖</div>
-                    <h2 class="welcome-title">¡Bienvenido a tu Diario Espiritual!</h2>
-                    <p class="welcome-text">
-                        Aquí podrás documentar tus estudios, reflexiones y crecimiento espiritual. 
-                        Cada entrada que agregues será un tesoro de sabiduría que podrás revisar 
-                        y compartir en el futuro. ¡Comienza creando tu primer estudio!
-                    </p>
-                </div>
-
-                <!-- Lista de entradas -->
-                <div class="entries-container" id="entriesContainer" style="display: none;">
-                    <!-- Las entradas se cargarán aquí dinámicamente -->
-                </div>
-
-                <!-- Vista detallada -->
-                <div class="detailed-view" id="detailedView">
-                    <!-- El contenido detallado se cargará aquí -->
+        <!-- Quiz Tab -->
+        <div id="quiz" class="tab-content">
+            <div class="quiz-container">
+                <h2 style="margin-bottom: 30px; color: #333;">Preguntas sobre la Cronología</h2>
+                <div id="quizContainer">
+                    <!-- Quiz will be populated by JavaScript -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Botón flotante para agregar -->
-    <button class="floating-add-btn" id="floatingAddBtn" title="Nueva entrada">
-        ➕
-    </button>
-
-    <!-- Notificaciones -->
-    <div class="notification" id="notification">
-        <span id="notificationMessage"></span>
+    <!-- Modal for detailed information -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
     </div>
 
     <script>
-        class SpiritualStudyApp {
-            constructor() {
-                this.entries = [];
-                this.currentEntry = null;
-                this.currentType = 'video';
-                this.init();
+        const timelineData = [
+            {
+                year: "607 a.C.",
+                title: "Inicio de los 'Siete Tiempos'",
+                description: "Destrucción de Jerusalén - Comienzo del período de 2,520 años",
+                category: "established",
+                details: "Según la interpretación de JW.org, este año marca el inicio de los 'siete tiempos' o 'tiempos de los gentiles' mencionados en las profecías bíblicas."
+            },
+            {
+                year: "1914",
+                title: "Establecimiento del Reino de Dios",
+                description: "Fin de los 'siete tiempos' - Cristo se convierte en Rey",
+                category: "established",
+                details: "Eventos clave: Jesucristo se convierte en Rey del Reino, Satanás es arrojado a la Tierra, comienza la presencia invisible de Cristo, inicio de la Primera Guerra Mundial como parte de la 'señal'."
+            },
+            {
+                year: "1914-1919",
+                title: "Período de Inspección",
+                description: "Jesús inspecciona el 'templo espiritual' y refina a los ungidos",
+                category: "established",
+                details: "Proceso de refinamiento de los cristianos ungidos, separación entre verdaderos y falsos cristianos, pruebas para los Estudiantes de la Biblia."
+            },
+            {
+                year: "1919",
+                title: "Identificación del 'Trigo'",
+                description: "Los Estudiantes de la Biblia son identificados como cristianos verdaderos",
+                category: "established",
+                details: "Inicio del período de recoger el trigo, separación de Babilonia la Grande, intensificación de la obra de predicación."
+            },
+            {
+                year: "1920-1945",
+                title: "Formación del 'Octavo Rey'",
+                description: "Creación de la Sociedad de Naciones y posteriormente las Naciones Unidas",
+                category: "established",
+                details: "1920: Sociedad de Naciones, 1945: Naciones Unidas - Cumplimiento de la profecía del 'octavo rey'."
+            },
+            {
+                year: "Futuro Inmediato",
+                title: "Proclamación de 'Paz y Seguridad'",
+                description: "Los líderes mundiales proclamarán una falsa paz",
+                category: "future",
+                details: "Esta proclamación marcará el inicio inminente del 'día de Jehová' y será una señal clave para los eventos finales."
+            },
+            {
+                year: "Después de 'Paz y Seguridad'",
+                title: "Transferencia de Poder a la ONU",
+                description: "Los gobiernos entregan súbitamente su autoridad a las Naciones Unidas",
+                category: "future",
+                details: "NUEVA COMPRENSIÓN: Este será un evento súbito y dramático que señalará que la gran tribulación está a punto de empezar."
+            },
+            {
+                year: "Gran Tribulación - Inicio",
+                title: "Destrucción de Babilonia la Grande",
+                description: "La ONU destruye todas las religiones falsas",
+                category: "future",
+                details: "Marca el inicio oficial de la gran tribulación. Las Naciones Unidas, con su nueva autoridad, ejecutan la sentencia divina contra las religiones falsas."
+            },
+            {
+                year: "Durante la Gran Tribulación",
+                title: "Recolección Final de Ungidos",
+                description: "Los 144,000 ungidos restantes son reunidos en el cielo",
+                category: "future",
+                details: "Todos los ungidos restantes reciben su recompensa celestial antes del Armagedón. Jesús actúa como Juez y comienza el juicio de ovejas y cabras."
+            },
+            {
+                year: "Final de la Gran Tribulación",
+                title: "Ataque de Gog de Magog",
+                description: "Coalición liderada por Rusia ataca a los siervos de Dios",
+                category: "future",
+                details: "Después de la destrucción de las religiones falsas, los Testigos de Jehová quedan como único grupo religioso visible y son atacados."
+            },
+            {
+                year: "Armagedón",
+                title: "Guerra del Armagedón",
+                description: "Jesucristo y sus ejércitos celestiales intervienen",
+                category: "future",
+                details: "Intervención divina con terremotos, granizo, rayos y confusión entre enemigos. Los 144,000 desde el cielo participan en la batalla."
+            },
+            {
+                year: "Después del Armagedón",
+                title: "Las Bodas del Cordero",
+                description: "Celebración celestial de la unión completa del Reino",
+                category: "future",
+                details: "Celebración de la unión de Cristo con sus 144,000 co-gobernantes en el cielo."
+            },
+            {
+                year: "Reino Milenario",
+                title: "Confinamiento de Satanás",
+                description: "Satanás es arrojado al abismo por 1,000 años",
+                category: "future",
+                details: "Inicio del Reinado Milenario de Cristo en la Tierra, con Satanás y los demonios inactivos."
             }
+        ];
 
-            init() {
-                this.loadEntriesFromStorage();
-                this.bindEvents();
-                this.updateStats();
-                this.showWelcomeOrEntries();
+        const conceptMapData = [
+            { id: 'reino', text: '1914 - Reino de Dios', type: 'central', x: 50, y: 20 },
+            { id: 'senal', text: 'Señal de la Presencia', type: 'normal', x: 20, y: 40 },
+            { id: 'inspeccion', text: 'Inspección del Templo', type: 'normal', x: 80, y: 40 },
+            { id: 'trigo', text: '1919 - Identificación del Trigo', type: 'normal', x: 50, y: 60 },
+            { id: 'paz', text: 'Proclamación Paz y Seguridad', type: 'future', x: 30, y: 80 },
+            { id: 'onu', text: 'Transferencia Poder a ONU', type: 'future', x: 70, y: 80 },
+            { id: 'babilonia', text: 'Destrucción Babilonia', type: 'future', x: 20, y: 100 },
+            { id: 'gog', text: 'Ataque de Gog', type: 'future', x: 50, y: 120 },
+            { id: 'armagedon', text: 'Armagedón', type: 'future', x: 80, y: 100 }
+        ];
+
+        const quizData = [
+            {
+                question: "¿En qué año se estableció el Reino de Dios según JW.org?",
+                options: ["1914", "1919", "1918", "1920"],
+                correct: 0,
+                explanation: "Según la enseñanza de JW.org, el Reino de Dios se estableció en 1914, marcando el fin de los 'siete tiempos' o 2,520 años desde 607 a.C."
+            },
+            {
+                question: "¿Qué evento marca el INICIO oficial de la gran tribulación?",
+                options: ["La proclamación de Paz y Seguridad", "La destrucción de Babilonia la Grande", "El ataque de Gog de Magog", "La Guerra del Armagedón"],
+                correct: 1,
+                explanation: "La destrucción de Babilonia la Grande (todas las religiones falsas) por parte de la ONU marca el inicio oficial de la gran tribulación."
+            },
+            {
+                question: "¿Quién ejecutará la destrucción de Babilonia la Grande?",
+                options: ["Los ángeles directamente", "Las Naciones Unidas con nueva autoridad", "Los gobiernos individualmente", "Los Testigos de Jehová"],
+                correct: 1,
+                explanation: "Según la nueva comprensión, las Naciones Unidas, después de recibir autoridad de los gobiernos, ejecutarán la destrucción de las religiones falsas."
+            },
+            {
+                question: "¿Qué representa 'esta generación' según la enseñanza actual?",
+                options: ["Una sola generación de 70-80 años", "Dos grupos de ungidos cuyas vidas coinciden", "Toda la humanidad desde 1914", "Los líderes mundiales"],
+                correct: 1,
+                explanation: "'Esta generación' se refiere a dos grupos de cristianos ungidos: los que vieron 1914 y los contemporáneos de algunos de ellos."
+            },
+            {
+                question: "¿Cuál es la diferencia clave en la nueva comprensión sobre el 'pensamiento' que Jehová pone en las naciones?",
+                options: ["Destruir directamente las religiones", "Entregar autoridad a la ONU", "Proclamar paz mundial", "Atacar a los ungidos"],
+                correct: 1,
+                explanation: "La nueva comprensión indica que Jehová pondrá en las naciones el pensamiento de entregar su autoridad a la ONU, quien entonces ejecutará la destrucción."
             }
-
-            bindEvents() {
-                // Formulario
-                document.getElementById('studyForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.addEntry();
-                });
-
-                // Selectores de tipo de estudio
-                document.querySelectorAll('.study-type-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        this.selectStudyType(e.target.dataset.type);
-                    });
-                });
-
-                // Búsqueda
-                document.getElementById('searchInput').addEventListener('input', (e) => {
-                    this.searchEntries(e.target.value);
-                });
-
-                // Botones de acción
-                document.getElementById('exportBtn').addEventListener('click', () => this.exportEntries());
-                document.getElementById('importBtn').addEventListener('click', () => this.importEntries());
-                document.getElementById('backupBtn').addEventListener('click', () => this.createBackup());
-                document.getElementById('clearAllBtn').addEventListener('click', () => this.clearAllEntries());
-                document.getElementById('floatingAddBtn').addEventListener('click', () => this.scrollToForm());
-            }
-
-            selectStudyType(type) {
-                this.currentType = type;
-                
-                // Actualizar botones
-                document.querySelectorAll('.study-type-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                document.querySelector(`[data-type="${type}"]`).classList.add('active');
-
-                // Mostrar/ocultar campos según el tipo
-                const urlGroup = document.getElementById('urlGroup');
-                const scriptureGroup = document.getElementById('scriptureGroup');
-                const urlInput = document.getElementById('studyUrl');
-                const scriptureInput = document.getElementById('scriptureRef');
-
-                if (type === 'bible') {
-                    urlGroup.style.display = 'none';
-                    scriptureGroup.style.display = 'block';
-                    urlInput.required = false;
-                    scriptureInput.required = true;
-                } else if (type === 'personal') {
-                    urlGroup.style.display = 'none';
-                    scriptureGroup.style.display = 'none';
-                    urlInput.required = false;
-                    scriptureInput.required = false;
-                } else {
-                    urlGroup.style.display = 'block';
-                    scriptureGroup.style.display = 'none';
-                    urlInput.required = true;
-                    scriptureInput.required = false;
-                }
-            }
-
-            addEntry() {
-                const formData = {
-                    id: Date.now(),
-                    type: this.currentType,
-                    title: document.getElementById('studyTitle').value.trim(),
-                    url: document.getElementById('studyUrl').value.trim(),
-                    scriptureRef: document.getElementById('scriptureRef').value.trim(),
-                    keyText: document.getElementById('keyText').value.trim(),
-                    personalReflection: document.getElementById('personalReflection').value.trim(),
-                    practicalApplication: document.getElementById('practicalApplication').value.trim(),
-                    tags: document.getElementById('studyTags').value.trim().split(',').map(tag => tag.trim()).filter(tag => tag),
-                    createdAt: new Date().toISOString(),
-                    lastModified: new Date().toISOString()
-                };
-
-                if (!formData.title || !formData.personalReflection) {
-                    this.showNotification('Por favor completa al menos el título y tu reflexión personal', 'error');
-                    return;
-                }
-
-                this.entries.unshift(formData);
-                this.saveEntriesToStorage();
-                this.renderEntries();
-                this.updateStats();
-                this.clearForm();
-                this.showWelcomeOrEntries();
-                
-                this.showNotification(`✨ Estudio "${formData.title}" guardado exitosamente!`);
-            }
-
-            clearForm() {
-                document.getElementById('studyForm').reset();
-                this.selectStudyType('video');
-            }
-
-            renderEntries(filteredEntries = null) {
-                const container = document.getElementById('entriesContainer');
-                const entries = filteredEntries || this.entries;
-
-                if (entries.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">📝</div>
-                            <h3>No hay estudios aún</h3>
-                            <p>¡Comienza agregando tu primer estudio espiritual!</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = entries.map(entry => `
-                    <div class="entry-card" onclick="app.viewEntry(${entry.id})">
-                        <div class="entry-header">
-                            <div class="entry-type">${this.getTypeIcon(entry.type)} ${this.getTypeName(entry.type)}</div>
-                            <div class="entry-date">${this.formatDate(entry.createdAt)}</div>
-                        </div>
-                        <div class="entry-title">${entry.title}</div>
-                        <div class="entry-preview">${entry.personalReflection}</div>
-                        ${entry.tags.length > 0 ? `
-                            <div class="entry-tags">
-                                ${entry.tags.map(tag => `<span class="entry-tag">#${tag}</span>`).join('')}
-                            </div>
-                        ` : ''}
-                    </div>
-                `).join('');
-            }
-
-            viewEntry(id) {
-                const entry = this.entries.find(e => e.id === id);
-                if (!entry) return;
-
-                this.currentEntry = entry;
-                this.showDetailedView(entry);
-            }
-
-            showDetailedView(entry) {
-                const detailView = document.getElementById('detailedView');
-                const entriesContainer = document.getElementById('entriesContainer');
-                const welcomeView = document.getElementById('welcomeView');
-
-                welcomeView.style.display = 'none';
-                entriesContainer.style.display = 'none';
-                detailView.classList.add('active');
-
-                detailView.innerHTML = `
-                    <div class="detail-header">
-                        <div class="detail-title">${entry.title}</div>
-                        <div class="detail-meta">
-                            <div class="entry-type">${this.getTypeIcon(entry.type)} ${this.getTypeName(entry.type)}</div>
-                            <div class="entry-date">📅 ${this.formatDate(entry.createdAt)}</div>
-                            ${entry.tags.length > 0 ? `
-                                <div class="entry-tags">
-                                    ${entry.tags.map(tag => `<span class="entry-tag">#${tag}</span>`).join('')}
-                                </div>
-                            ` : ''}
-                        </div>
-                    </div>
-
-                    ${entry.url ? `
-                        <div class="detail-section">
-                            <h3>🔗 Fuente</h3>
-                            <div class="detail-content">
-                                <a href="${entry.url}" target="_blank" style="color: #4f46e5; text-decoration: none; font-weight: 600;">
-                                    🚀 Abrir en JW.org
-                                </a>
-                                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary); word-break: break-all;">
-                                    ${entry.url}
-                                </p>
-                            </div>
-                        </div>
-                    ` : ''}
-
-                    ${entry.scriptureRef ? `
-                        <div class="detail-section">
-                            <h3>📖 Referencia Bíblica</h3>
-                            <div class="scripture-reference">
-                                ${entry.scriptureRef}
-                            </div>
-                        </div>
-                    ` : ''}
-
-                    ${entry.keyText ? `
-                        <div class="detail-section">
-                            <h3>💎 Texto Clave</h3>
-                            <div class="detail-content">
-                                <em>"${entry.keyText}"</em>
-                            </div>
-                        </div>
-                    ` : ''}
-
-                    <div class="detail-section">
-                        <h3>💭 Mi Reflexión Personal</h3>
-                        <div class="reflection-text">
-                            ${entry.personalReflection.replace(/\n/g, '<br>')}
-                        </div>
-                    </div>
-
-                    ${entry.practicalApplication ? `
-                        <div class="detail-section">
-                            <h3>🎯 Aplicación Práctica</h3>
-                            <div class="detail-content">
-                                ${entry.practicalApplication.replace(/\n/g, '<br>')}
-                            </div>
-                        </div>
-                    ` : ''}
-
-                    <div class="action-buttons">
-                        <button class="btn btn-secondary btn-small" onclick="app.backToList()">
-                            ← Volver a la lista
-                        </button>
-                        <button class="btn btn-success btn-small" onclick="app.editEntry(${entry.id})">
-                            ✏️ Editar
-                        </button>
-                        <button class="btn btn-secondary btn-small" onclick="app.duplicateEntry(${entry.id})">
-                            📋 Duplicar
-                        </button>
-                        <button class="btn btn-secondary btn-small" onclick="app.exportSingle(${entry.id})">
-                            📤 Exportar
-                        </button>
-                        <button class="btn btn-danger btn-small" onclick="app.deleteEntry(${entry.id})">
-                            🗑️ Eliminar
-                        </button>
-                    </div>
-                `;
-            }
-
-            backToList() {
-                document.getElementById('detailedView').classList.remove('active');
-                this.showWelcomeOrEntries();
-            }
-
-            editEntry(id) {
-                const entry = this.entries.find(e => e.id === id);
-                if (!entry) return;
-
-                // Llenar el formulario con los datos existentes
-                this.selectStudyType(entry.type);
-                document.getElementById('studyTitle').value = entry.title;
-                document.getElementById('studyUrl').value = entry.url || '';
-                document.getElementById('scriptureRef').value = entry.scriptureRef || '';
-                document.getElementById('keyText').value = entry.keyText || '';
-                document.getElementById('personalReflection').value = entry.personalReflection;
-                document.getElementById('practicalApplication').value = entry.practicalApplication || '';
-                document.getElementById('studyTags').value = entry.tags.join(', ');
-
-                // Eliminar la entrada existente
-                this.entries = this.entries.filter(e => e.id !== id);
-                this.saveEntriesToStorage();
-                this.updateStats();
-                
-                // Volver al formulario
-                this.backToList();
-                this.scrollToForm();
-                
-                this.showNotification('📝 Estudio cargado para edición', 'warning');
-            }
-
-            duplicateEntry(id) {
-                const entry = this.entries.find(e => e.id === id);
-                if (!entry) return;
-
-                const duplicatedEntry = {
-                    ...entry,
-                    id: Date.now(),
-                    title: `${entry.title} (Copia)`,
-                    createdAt: new Date().toISOString(),
-                    lastModified: new Date().toISOString()
-                };
-
-                this.entries.unshift(duplicatedEntry);
-                this.saveEntriesToStorage();
-                this.updateStats();
-                this.backToList();
-
-                this.showNotification(`📋 Estudio "${entry.title}" duplicado exitosamente`);
-            }
-
-            deleteEntry(id) {
-                const entry = this.entries.find(e => e.id === id);
-                if (!entry) return;
-
-                if (confirm(`¿Estás seguro de que quieres eliminar "${entry.title}"?\n\nEsta acción no se puede deshacer.`)) {
-                    this.entries = this.entries.filter(e => e.id !== id);
-                    this.saveEntriesToStorage();
-                    this.updateStats();
-                    this.backToList();
-                    
-                    this.showNotification(`🗑️ Estudio "${entry.title}" eliminado`, 'error');
-                }
-            }
-
-            exportSingle(id) {
-                const entry = this.entries.find(e => e.id === id);
-                if (!entry) return;
-
-                const exportData = {
-                    metadata: {
-                        exportDate: new Date().toISOString(),
-                        version: "1.0",
-                        type: "single_entry"
-                    },
-                    entry: entry
-                };
-
-                this.downloadJson(exportData, `estudio-${entry.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`);
-                this.showNotification('📤 Estudio exportado exitosamente');
-            }
-
-            searchEntries(query) {
-                if (!query.trim()) {
-                    this.renderEntries();
-                    return;
-                }
-
-                const filtered = this.entries.filter(entry => 
-                    entry.title.toLowerCase().includes(query.toLowerCase()) ||
-                    entry.personalReflection.toLowerCase().includes(query.toLowerCase()) ||
-                    entry.keyText.toLowerCase().includes(query.toLowerCase()) ||
-                    entry.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
-                    entry.scriptureRef.toLowerCase().includes(query.toLowerCase())
-                );
-
-                this.renderEntries(filtered);
-            }
-
-            showWelcomeOrEntries() {
-                const welcomeView = document.getElementById('welcomeView');
-                const entriesContainer = document.getElementById('entriesContainer');
-                const detailView = document.getElementById('detailedView');
-
-                detailView.classList.remove('active');
-
-                if (this.entries.length === 0) {
-                    welcomeView.style.display = 'block';
-                    entriesContainer.style.display = 'none';
-                } else {
-                    welcomeView.style.display = 'none';
-                    entriesContainer.style.display = 'block';
-                    this.renderEntries();
-                }
-            }
-
-            updateStats() {
-                document.getElementById('totalEntries').textContent = this.entries.length;
-                
-                const currentMonth = new Date().getMonth();
-                const currentYear = new Date().getFullYear();
-                const thisMonthCount = this.entries.filter(entry => {
-                    const entryDate = new Date(entry.createdAt);
-                    return entryDate.getMonth() === currentMonth && entryDate.getFullYear() === currentYear;
-                }).length;
-                
-                document.getElementById('thisMonth').textContent = thisMonthCount;
-            }
-
-            createBackup() {
-                if (this.entries.length === 0) {
-                    this.showNotification('No hay estudios para respaldar', 'error');
-                    return;
-                }
-
-                const backupData = {
-                    metadata: {
-                        backupDate: new Date().toISOString(),
-                        version: "1.0",
-                        totalEntries: this.entries.length,
-                        appName: "Diario de Estudio Espiritual",
-                        backupType: "full_backup"
-                    },
-                    entries: this.entries
-                };
-
-                this.downloadJson(backupData, 'respaldo-diario-espiritual');
-                this.showNotification(`💾 Respaldo creado con ${this.entries.length} estudios`);
-            }
-
-            exportEntries() {
-                if (this.entries.length === 0) {
-                    this.showNotification('No hay estudios para exportar', 'error');
-                    return;
-                }
-
-                const exportData = {
-                    metadata: {
-                        exportDate: new Date().toISOString(),
-                        version: "1.0",
-                        totalEntries: this.entries.length,
-                        appName: "Diario de Estudio Espiritual"
-                    },
-                    entries: this.entries
-                };
-
-                this.downloadJson(exportData, 'mi-diario-espiritual');
-                this.showNotification(`📤 ${this.entries.length} estudios exportados exitosamente`);
-            }
-
-            importEntries() {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = '.json';
-                input.onchange = (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            try {
-                                const data = JSON.parse(e.target.result);
-                                let importedEntries = [];
-
-                                if (data.entries && Array.isArray(data.entries)) {
-                                    importedEntries = data.entries;
-                                } else if (data.entry) {
-                                    importedEntries = [data.entry];
-                                } else if (Array.isArray(data)) {
-                                    importedEntries = data;
-                                }
-
-                                if (importedEntries.length > 0) {
-                                    const confirmMsg = `¿Quieres importar ${importedEntries.length} estudio(s)?\n\nEsto se agregará a tus estudios existentes.`;
-                                    if (confirm(confirmMsg)) {
-                                        this.entries = [...importedEntries, ...this.entries];
-                                        this.saveEntriesToStorage();
-                                        this.updateStats();
-                                        this.showWelcomeOrEntries();
-                                        this.showNotification(`📥 ${importedEntries.length} estudio(s) importado(s) exitosamente`);
-                                    }
-                                } else {
-                                    throw new Error('No se encontraron estudios válidos');
-                                }
-                            } catch (error) {
-                                this.showNotification('Error al importar. Archivo no válido.', 'error');
-                            }
-                        };
-                        reader.readAsText(file);
-                    }
-                };
-                input.click();
-            }
-
-            clearAllEntries() {
-                if (this.entries.length === 0) {
-                    this.showNotification('No hay estudios para eliminar', 'error');
-                    return;
-                }
-
-                const confirmMsg = `¿Estás COMPLETAMENTE SEGURO de que quieres eliminar TODOS tus ${this.entries.length} estudios?\n\n⚠️ ESTA ACCIÓN NO SE PUEDE DESHACER ⚠️\n\nRecomendamos exportar primero como respaldo.`;
-                
-                if (confirm(confirmMsg)) {
-                    // Limpiar tanto la memoria como el localStorage
-                    this.entries = [];
-                    try {
-                        localStorage.removeItem('spiritualStudyApp');
-                        console.log('🗑️ Datos eliminados del localStorage');
-                    } catch (error) {
-                        console.error('Error al limpiar localStorage:', error);
-                    }
-                    
-                    this.updateStats();
-                    this.showWelcomeOrEntries();
-                    document.getElementById('searchInput').value = '';
-                    this.showNotification('🗑️ Todos los estudios han sido eliminados permanentemente', 'error');
-                }
-            }
-
-            scrollToForm() {
-                document.querySelector('.sidebar').scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-
-            downloadJson(data, filename) {
-                const dataStr = JSON.stringify(data, null, 2);
-                const dataBlob = new Blob([dataStr], {type: 'application/json'});
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `${filename}-${new Date().getTime()}.json`;
-                link.click();
-                URL.revokeObjectURL(url);
-            }
-
-            saveEntriesToStorage() {
-                try {
-                    const data = {
-                        entries: this.entries,
-                        lastSaved: new Date().toISOString(),
-                        version: "1.0"
-                    };
-                    localStorage.setItem('spiritualStudyApp', JSON.stringify(data));
-                    console.log('✅ Datos guardados en localStorage:', this.entries.length, 'estudios');
-                } catch (error) {
-                    console.error('❌ Error al guardar en localStorage:', error);
-                    this.showNotification('Error al guardar datos localmente', 'error');
-                }
-            }
-
-            loadEntriesFromStorage() {
-                try {
-                    const savedData = localStorage.getItem('spiritualStudyApp');
-                    if (savedData) {
-                        const data = JSON.parse(savedData);
-                        if (data && data.entries && Array.isArray(data.entries)) {
-                            this.entries = data.entries;
-                            console.log('✅ Datos cargados desde localStorage:', this.entries.length, 'estudios');
-                            
-                            // Mostrar mensaje de bienvenida si hay datos guardados
-                            if (this.entries.length > 0) {
-                                setTimeout(() => {
-                                    this.showNotification(`📚 ${this.entries.length} estudios cargados desde tu almacenamiento local`);
-                                }, 1000);
-                            }
-                        } else {
-                            console.log('📝 No hay datos válidos en localStorage');
-                            this.entries = [];
-                        }
-                    } else {
-                        console.log('📝 No hay datos guardados en localStorage');
-                        this.entries = [];
-                    }
-                } catch (error) {
-                    console.error('❌ Error al cargar desde localStorage:', error);
-                    this.entries = [];
-                    this.showNotification('Error al cargar datos locales', 'warning');
-                }
-            }
-
-            getTypeIcon(type) {
-                const icons = {
-                    video: '🎬',
-                    publication: '📚',
-                    bible: '📖',
-                    personal: '💭'
-                };
-                return icons[type] || '📝';
-            }
-
-            getTypeName(type) {
-                const names = {
-                    video: 'Video',
-                    publication: 'Publicación',
-                    bible: 'Biblia',
-                    personal: 'Personal'
-                };
-                return names[type] || 'Estudio';
-            }
-
-            formatDate(dateString) {
-                const date = new Date(dateString);
-                const now = new Date();
-                const diffTime = Math.abs(now - date);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                if (diffDays === 1) {
-                    return 'Hoy';
-                } else if (diffDays === 2) {
-                    return 'Ayer';
-                } else if (diffDays <= 7) {
-                    return `Hace ${diffDays - 1} días`;
-                } else {
-                    return date.toLocaleDateString('es-ES', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
-                    });
-                }
-            }
-
-            showNotification(message, type = 'success') {
-                const notification = document.getElementById('notification');
-                const messageEl = document.getElementById('notificationMessage');
-                
-                messageEl.textContent = message;
-                notification.className = `notification ${type}`;
-                notification.classList.add('show');
-
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 4000);
+        ];
+
+        let currentQuizIndex = 0;
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Update active button
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Initialize content based on tab
+            if (tabName === 'timeline') {
+                initializeTimeline();
+            } else if (tabName === 'conceptmap') {
+                initializeConceptMap();
+            } else if (tabName === 'quiz') {
+                initializeQuiz();
             }
         }
 
-        // Inicializar la aplicación
-        const app = new SpiritualStudyApp();
+        function initializeTimeline() {
+            const timeline = document.getElementById('mainTimeline');
+            timeline.innerHTML = '';
 
-        // Agregar algunos estudios de ejemplo si no hay datos
-        if (app.entries.length === 0) {
-            // Comentar o eliminar esta sección después de las primeras pruebas
-            const exampleEntries = [
-                {
-                    id: Date.now() - 1000,
-                    type: 'bible',
-                    title: 'La importancia de la paciencia',
-                    scriptureRef: 'Santiago 1:2-4',
-                    keyText: 'Considérenlo todo gozo, hermanos míos, cuando se encuentren con diversas pruebas, sabiendo que esta cualidad probada de su fe obra aguante.',
-                    personalReflection: 'Este texto me ayuda a entender que las pruebas no son algo negativo, sino oportunidades para crecer espiritualmente. La paciencia no es solo esperar, sino mantener una actitud positiva durante las dificultades.',
-                    practicalApplication: 'Cuando enfrente situaciones estresantes esta semana, voy a recordar este texto y buscar la oportunidad de aprendizaje en lugar de frustrarme.',
-                    tags: ['paciencia', 'pruebas', 'crecimiento', 'fe'],
-                    createdAt: new Date(Date.now() - 86400000).toISOString(),
-                    lastModified: new Date(Date.now() - 86400000).toISOString()
+            timelineData.forEach((item, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'} ${item.category}`;
+                timelineItem.onclick = () => showEventDetails(item);
+
+                timelineItem.innerHTML = `
+                    <div class="timeline-content">
+                        <div class="year">${item.year}</div>
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                `;
+
+                timeline.appendChild(timelineItem);
+            });
+
+            // Animate progress bar
+            setTimeout(() => {
+                const establishedEvents = timelineData.filter(item => item.category === 'established').length;
+                const totalEvents = timelineData.length;
+                const progress = (establishedEvents / totalEvents) * 100;
+                document.getElementById('progressFill').style.width = `${progress}%`;
+            }, 500);
+        }
+
+        function initializeConceptMap() {
+            const container = document.getElementById('conceptMapContainer');
+            container.innerHTML = '';
+            container.style.position = 'relative';
+            container.style.height = '600px';
+
+            conceptMapData.forEach(node => {
+                const nodeElement = document.createElement('div');
+                nodeElement.className = `concept-node ${node.type}`;
+                nodeElement.style.position = 'absolute';
+                nodeElement.style.left = `${node.x}%`;
+                nodeElement.style.top = `${node.y}%`;
+                nodeElement.style.transform = 'translate(-50%, -50%)';
+                nodeElement.textContent = node.text;
+                nodeElement.onclick = () => showConceptDetails(node);
+
+                container.appendChild(nodeElement);
+            });
+        }
+
+        function initializeQuiz() {
+            currentQuizIndex = 0;
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const container = document.getElementById('quizContainer');
+            const quiz = quizData[currentQuizIndex];
+
+            container.innerHTML = `
+                <div class="question">${quiz.question}</div>
+                <div class="quiz-options">
+                    ${quiz.options.map((option, index) => 
+                        `<button class="quiz-option" onclick="selectAnswer(${index})">${option}</button>`
+                    ).join('')}
+                </div>
+                <div id="quizFeedback" class="quiz-feedback"></div>
+                <div style="margin-top: 20px; color: #666;">
+                    Pregunta ${currentQuizIndex + 1} de ${quizData.length}
+                </div>
+            `;
+        }
+
+        function selectAnswer(selectedIndex) {
+            const quiz = quizData[currentQuizIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('quizFeedback');
+
+            options.forEach((option, index) => {
+                if (index === quiz.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && index !== quiz.correct) {
+                    option.classList.add('incorrect');
                 }
-            ];
+                option.onclick = null; // Disable further clicks
+            });
+
+            feedback.innerHTML = `
+                <h3>${selectedIndex === quiz.correct ? '¡Correcto! ✅' : 'Incorrecto ❌'}</h3>
+                <p>${quiz.explanation}</p>
+                <button onclick="nextQuestion()" style="margin-top: 15px; padding: 10px 20px; background: #4ecdc4; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    ${currentQuizIndex < quizData.length - 1 ? 'Siguiente Pregunta' : 'Reiniciar Quiz'}
+                </button>
+            `;
+            feedback.className = `quiz-feedback show ${selectedIndex === quiz.correct ? 'correct' : 'incorrect'}`;
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex >= quizData.length) {
+                currentQuizIndex = 0;
+            }
+            showQuizQuestion();
+        }
+
+        function showEventDetails(event) {
+            const modal = document.getElementById('detailModal');
+            const content = document.getElementById('modalContent');
+
+            content.innerHTML = `
+                <h2>${event.title}</h2>
+                <h3 style="color: #4ecdc4; margin-bottom: 15px;">${event.year}</h3>
+                <p style="margin-bottom: 15px;"><strong>Descripción:</strong> ${event.description}</p>
+                <p><strong>Detalles:</strong> ${event.details}</p>
+                <div style="margin-top: 20px; padding: 15px; background: ${event.category === 'established' ? 'rgba(56, 239, 125, 0.1)' : 'rgba(255, 107, 107, 0.1)'}; border-radius: 10px;">
+                    <strong>Estado:</strong> ${event.category === 'established' ? 'Acontecimiento Establecido ✅' : 'Acontecimiento Futuro ⏳'}
+                </div>
+            `;
+
+            modal.style.display = 'block';
+        }
+
+        function showConceptDetails(node) {
+            const details = {
+                'reino': 'El establecimiento del Reino de Dios en 1914 marca el comienzo de la presencia invisible de Cristo como Rey.',
+                'senal': 'La señal incluye guerras, hambre, terremotos y epidemias a escala mundial desde 1914.',
+                'inspeccion': 'Período de 1914-1919 cuando Jesús inspeccionó y refinó el templo espiritual.',
+                'trigo': 'En 1919 los Estudiantes de la Biblia fueron identificados como cristianos verdaderos.',
+                'paz': 'Los líderes mundiales proclamarán una falsa paz que marcará el inicio del día de Jehová.',
+                'onu': 'NUEVA COMPRENSIÓN: Los gobiernos entregarán súbitamente su autoridad a las Naciones Unidas.',
+                'babilonia': 'La ONU destruirá todas las religiones falsas, marcando el inicio de la gran tribulación.',
+                'gog': 'Coalición liderada por Rusia atacará a los siervos de Dios después de destruir las religiones.',
+                'armagedon': 'Intervención divina final con Cristo y los 144,000 desde el cielo.'
+            };
+
+            const modal = document.getElementById('detailModal');
+            const content = document.getElementById('modalContent');
+
+            content.innerHTML = `
+                <h2>${node.text}</h2>
+                <p style="margin-bottom: 20px;">${details[node.id] || 'Información detallada no disponible.'}</p>
+                <div style="padding: 15px; background: ${node.type === 'future' ? 'rgba(255, 107, 107, 0.1)' : 'rgba(56, 239, 125, 0.1)'}; border-radius: 10px;">
+                    <strong>Tipo:</strong> ${node.type === 'future' ? 'Evento Futuro ⏳' : node.type === 'central' ? 'Evento Central 🎯' : 'Evento Establecido ✅'}
+                </div>
+            `;
+
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('detailModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTimeline();
+        });
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate timeline items on scroll
+            const timelineItems = document.querySelectorAll('.timeline-item');
             
-            // Descomenta las siguientes líneas si quieres ver el ejemplo
-            // app.entries = exampleEntries;
-            // app.saveEntriesToStorage();
-            // app.updateStats();
-            // app.showWelcomeOrEntries();
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.6s ease forwards';
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, observerOptions);
+
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                observer.observe(item);
+            });
+        });
+
+        // Add interactive hover effects for concept map
+        function addHoverEffects() {
+            const nodes = document.querySelectorAll('.concept-node');
+            nodes.forEach(node => {
+                node.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                    this.style.zIndex = '10';
+                });
+                
+                node.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translate(-50%, -50%) scale(1)';
+                    this.style.zIndex = '1';
+                });
+            });
+        }
+
+        // Enhanced quiz functionality
+        function shuffleQuiz() {
+            for (let i = quizData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [quizData[i], quizData[j]] = [quizData[j], quizData[i]];
+            }
+            currentQuizIndex = 0;
+            showQuizQuestion();
+        }
+
+        // Add search functionality
+        function searchEvents(query) {
+            const filteredEvents = timelineData.filter(event => 
+                event.title.toLowerCase().includes(query.toLowerCase()) ||
+                event.description.toLowerCase().includes(query.toLowerCase()) ||
+                event.year.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            displayFilteredEvents(filteredEvents);
+        }
+
+        function displayFilteredEvents(events) {
+            const timeline = document.getElementById('mainTimeline');
+            timeline.innerHTML = '';
+
+            events.forEach((item, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'} ${item.category}`;
+                timelineItem.onclick = () => showEventDetails(item);
+
+                timelineItem.innerHTML = `
+                    <div class="timeline-content">
+                        <div class="year">${item.year}</div>
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                `;
+
+                timeline.appendChild(timelineItem);
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Add tooltips for better user experience
+        function addTooltips() {
+            const elements = document.querySelectorAll('[data-tooltip]');
+            elements.forEach(element => {
+                element.addEventListener('mouseenter', function(e) {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = this.getAttribute('data-tooltip');
+                    tooltip.style.cssText = `
+                        position: absolute;
+                        background: rgba(0,0,0,0.8);
+                        color: white;
+                        padding: 8px 12px;
+                        border-radius: 4px;
+                        font-size: 14px;
+                        z-index: 1000;
+                        pointer-events: none;
+                        white-space: nowrap;
+                    `;
+                    document.body.appendChild(tooltip);
+                    
+                    const rect = this.getBoundingClientRect();
+                    tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+                    tooltip.style.top = rect.top - tooltip.offsetHeight - 8 + 'px';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    const tooltip = document.querySelector('.tooltip');
+                    if (tooltip) {
+                        tooltip.remove();
+                    }
+                });
+            });
         }
     </script>
 </body>
