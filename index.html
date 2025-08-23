@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📖 Mi Diario de Estudio Espiritual Mejorado</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>📖 Mi Diario de Estudio Espiritual</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +17,6 @@
             --success-color: #10b981;
             --warning-color: #f59e0b;
             --danger-color: #ef4444;
-            --info-color: #3b82f6;
             --text-primary: #1e293b;
             --text-secondary: #64748b;
             --bg-light: #f8fafc;
@@ -28,41 +25,6 @@
             --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            --sidebar-width: 320px;
-            --transition-speed: 0.3s;
-            --border-radius: 16px;
-        }
-
-        [data-theme="dark"] {
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --bg-light: #1e293b;
-            --bg-white: #0f172a;
-            --border-color: #334155;
-            --primary-gradient: linear-gradient(135deg, #4c5696 0%, #5d3b7a 100%);
-            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-            --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        [data-font-size="small"] {
-            font-size: 14px;
-        }
-
-        [data-font-size="medium"] {
-            font-size: 16px;
-        }
-
-        [data-font-size="large"] {
-            font-size: 18px;
-        }
-
-        [data-contrast="high"] {
-            --text-primary: #000000;
-            --text-secondary: #333333;
-            --bg-white: #ffffff;
-            --bg-light: #f0f0f0;
-            --border-color: #222222;
         }
 
         body {
@@ -72,38 +34,35 @@
             padding: 20px;
             color: var(--text-primary);
             line-height: 1.6;
-            transition: background var(--transition-speed), color var(--transition-speed);
         }
 
         .app-container {
-            max-width: 1800px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: var(--sidebar-width) 1fr;
+            grid-template-columns: 320px 1fr;
             gap: 30px;
             height: calc(100vh - 40px);
         }
 
         .sidebar {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--border-radius);
+            border-radius: 20px;
             backdrop-filter: blur(15px);
             box-shadow: var(--shadow-heavy);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: all var(--transition-speed);
         }
 
         .main-content {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--border-radius);
+            border-radius: 20px;
             backdrop-filter: blur(15px);
             box-shadow: var(--shadow-heavy);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: all var(--transition-speed);
         }
 
         .header {
@@ -157,14 +116,9 @@
         }
 
         .main-header {
-            background: linear-gradient(135deg, var(--bg-light), var(--border-color));
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
             padding: 25px;
             border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
         }
 
         .main-body {
@@ -203,7 +157,6 @@
             font-size: 14px;
             transition: all 0.3s ease;
             background: var(--bg-white);
-            color: var(--text-primary);
         }
 
         .input-field:focus {
@@ -257,14 +210,6 @@
 
         .btn-danger {
             background: linear-gradient(135deg, var(--danger-color), #dc2626);
-        }
-
-        .btn-info {
-            background: linear-gradient(135deg, var(--info-color), #2563eb);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning-color), #d97706);
         }
 
         .btn-small {
@@ -351,7 +296,7 @@
 
         .entry-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: between;
             align-items: flex-start;
             margin-bottom: 12px;
             gap: 10px;
@@ -517,8 +462,6 @@
         .search-box {
             position: relative;
             margin-bottom: 20px;
-            flex: 1;
-            max-width: 500px;
         }
 
         .search-input {
@@ -588,9 +531,6 @@
             transition: transform 0.4s ease;
             z-index: 1000;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .notification.show {
@@ -605,8 +545,43 @@
             background: var(--warning-color);
         }
 
-        .notification.info {
-            background: var(--info-color);
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+            
+            .main-content {
+                order: 1;
+                min-height: 70vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .app-container {
+                gap: 20px;
+            }
+            
+            .study-type-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
 
         .floating-add-btn {
@@ -648,312 +623,6 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #4f46e5;
         }
-
-        /* Nuevos estilos para mejoras */
-        .accessibility-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .accessibility-btn {
-            padding: 8px 12px;
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-        }
-
-        .accessibility-btn.active {
-            background: var(--secondary-gradient);
-            color: white;
-        }
-
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .filter-select {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background: var(--bg-white);
-            color: var(--text-primary);
-        }
-
-        .tab-container {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .tab.active {
-            border-bottom-color: #4f46e5;
-            color: #4f46e5;
-            font-weight: 600;
-        }
-
-        .challenge-card {
-            background: var(--bg-white);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-        }
-
-        .challenge-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: var(--bg-light);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--success-color);
-            border-radius: 4px;
-        }
-
-        .achievement-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: var(--bg-light);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 8px;
-            margin-bottom: 8px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--bg-white);
-            border-radius: 16px;
-            padding: 25px;
-            max-width: 500px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-heavy);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: var(--text-primary);
-            color: var(--bg-white);
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -60px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .audio-recorder {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 10px 0;
-        }
-
-        .audio-btn {
-            padding: 8px;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-
-        .verse-of-day {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            border-left: 4px solid #0ea5e9;
-        }
-
-        .community-section {
-            background: var(--bg-light);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        @media (max-width: 1024px) {
-            .app-container {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-            
-            .sidebar {
-                order: 2;
-            }
-            
-            .main-content {
-                order: 1;
-                min-height: 70vh;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .app-container {
-                gap: 20px;
-            }
-            
-            .study-type-selector {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .detail-meta {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .main-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-box {
-                max-width: 100%;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .btn-small {
-                width: 100%;
-            }
-        }
-
-        /* Estilos para modo de lectura */
-        .reading-mode .sidebar,
-        .reading-mode .main-header,
-        .reading-mode .action-buttons,
-        .reading-mode .tab-container,
-        .reading-mode .filter-bar {
-            display: none;
-        }
-
-        .reading-mode .main-content {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--bg-white);
-        }
-
-        .reading-mode .floating-add-btn {
-            display: none;
-        }
-
-        /* Estilos para alto contraste */
-        .high-contrast {
-            --text-primary: #000000;
-            --text-secondary: #333333;
-            --bg-white: #ffffff;
-            --bg-light: #f0f0f0;
-            --border-color: #222222;
-        }
-
-        .high-contrast .entry-card,
-        .high-contrast .stat-card,
-        .high-contrast .detail-content {
-            border-width: 2px;
-        }
-
-        /* Estilos para modo dislexia */
-        .dyslexia-mode {
-            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
-            letter-spacing: 0.5px;
-            line-height: 1.8;
-        }
-
-        .dyslexia-mode .entry-preview,
-        .dyslexia-mode .reflection-text,
-        .dyslexia-mode .detail-content {
-            line-height: 2;
-        }
     </style>
 </head>
 <body>
@@ -966,21 +635,6 @@
             </div>
             
             <div class="sidebar-content">
-                <div class="accessibility-bar">
-                    <button class="accessibility-btn" id="themeToggle">
-                        <i class="fas fa-moon"></i> Tema
-                    </button>
-                    <button class="accessibility-btn" id="fontSizeToggle">
-                        <i class="fas fa-text-height"></i> Tamaño
-                    </button>
-                    <button class="accessibility-btn" id="contrastToggle">
-                        <i class="fas fa-adjust"></i> Contraste
-                    </button>
-                    <button class="accessibility-btn" id="readingModeToggle">
-                        <i class="fas fa-book-reader"></i> Lectura
-                    </button>
-                </div>
-
                 <div class="section-title">
                     ✨ Nueva Entrada
                 </div>
@@ -1036,16 +690,6 @@
                         <input type="text" class="input-field" id="studyTags" placeholder="paciencia, amor, fe, oración">
                     </div>
 
-                    <div class="audio-recorder">
-                        <button type="button" class="audio-btn" id="recordAudio" title="Grabar audio">
-                            <i class="fas fa-microphone"></i>
-                        </button>
-                        <button type="button" class="audio-btn" id="stopRecording" disabled title="Detener grabación">
-                            <i class="fas fa-stop"></i>
-                        </button>
-                        <audio id="audioPlayback" controls style="display: none;"></audio>
-                    </div>
-
                     <button type="submit" class="btn btn-success">
                         💾 Guardar Estudio
                     </button>
@@ -1095,38 +739,9 @@
                     <span class="search-icon">🔍</span>
                     <input type="text" class="input-field search-input" id="searchInput" placeholder="Buscar en tus estudios...">
                 </div>
-                
-                <div class="filter-bar">
-                    <select class="filter-select" id="filterType">
-                        <option value="">Todos los tipos</option>
-                        <option value="video">Video</option>
-                        <option value="publication">Publicación</option>
-                        <option value="bible">Biblia</option>
-                        <option value="personal">Personal</option>
-                    </select>
-                    
-                    <select class="filter-select" id="filterDate">
-                        <option value="">Todas las fechas</option>
-                        <option value="today">Hoy</option>
-                        <option value="week">Esta semana</option>
-                        <option value="month">Este mes</option>
-                        <option value="year">Este año</option>
-                    </select>
-                    
-                    <select class="filter-select" id="filterTags">
-                        <option value="">Todas las etiquetas</option>
-                    </select>
-                </div>
             </div>
             
             <div class="main-body">
-                <div class="tab-container">
-                    <div class="tab active" data-tab="entries">Mis Estudios</div>
-                    <div class="tab" data-tab="challenges">Desafíos</div>
-                    <div class="tab" data-tab="community">Comunidad</div>
-                    <div class="tab" data-tab="stats">Estadísticas</div>
-                </div>
-
                 <!-- Vista de bienvenida -->
                 <div class="welcome-view" id="welcomeView">
                     <div class="welcome-icon">📖</div>
@@ -1147,161 +762,6 @@
                 <div class="detailed-view" id="detailedView">
                     <!-- El contenido detallado se cargará aquí -->
                 </div>
-
-                <!-- Vista de desafíos -->
-                <div class="detailed-view" id="challengesView" style="display: none;">
-                    <div class="section-title">
-                        <i class="fas fa-trophy"></i> Desafíos Espirituales
-                    </div>
-                    
-                    <div class="challenge-card">
-                        <div class="challenge-header">
-                            <h3>Estudio consistente</h3>
-                            <span class="entry-type">7/30 días</span>
-                        </div>
-                        <p>Estudia cada día durante 30 días seguidos</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 23%"></div>
-                        </div>
-                        <div class="entry-tags">
-                            <span class="entry-tag">+100 puntos</span>
-                        </div>
-                    </div>
-                    
-                    <div class="challenge-card">
-                        <div class="challenge-header">
-                            <h3>Variedad bíblica</h3>
-                            <span class="entry-type">3/5 tipos</span>
-                        </div>
-                        <p>Completa estudios de todos los tipos diferentes</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 60%"></div>
-                        </div>
-                        <div class="entry-tags">
-                            <span class="entry-tag">+50 puntos</span>
-                        </div>
-                    </div>
-                    
-                    <div class="section-title" style="margin-top: 30px;">
-                        <i class="fas fa-medal"></i> Logros
-                    </div>
-                    
-                    <div>
-                        <span class="achievement-badge"><i class="fas fa-seedling"></i> Primer estudio</span>
-                        <span class="achievement-badge"><i class="fas fa-book"></i> 7 días seguidos</span>
-                        <span class="achievement-badge"><i class="fas fa-pray"></i> Oración constante</span>
-                    </div>
-                </div>
-
-                <!-- Vista de comunidad -->
-                <div class="detailed-view" id="communityView" style="display: none;">
-                    <div class="section-title">
-                        <i class="fas fa-users"></i> Comunidad
-                    </div>
-                    
-                    <div class="community-section">
-                        <h3>Reflexiones compartidas</h3>
-                        <p>Aquí puedes encontrar reflexiones anónimas de otros usuarios:</p>
-                        
-                        <div class="entry-card">
-                            <div class="entry-header">
-                                <div class="entry-type">💭 Reflexión</div>
-                                <div class="entry-date">Hace 2 días</div>
-                            </div>
-                            <div class="entry-title">La paz que sobrepasa todo entendimiento</div>
-                            <div class="entry-preview">Hoy encontré consuelo en Filipenses 4:6-7. En medio de la ansiedad por mis problemas familiares, recordé que puedo llevar mis preocupaciones a Dios en oración.</div>
-                            <div class="entry-tags">
-                                <span class="entry-tag">paz</span>
-                                <span class="entry-tag">oración</span>
-                                <span class="entry-tag">filipenses</span>
-                            </div>
-                        </div>
-                        
-                        <div class="entry-card">
-                            <div class="entry-header">
-                                <div class="entry-type">📖 Biblia</div>
-                                <div class="entry-date">Hace 5 días</div>
-                            </div>
-                            <div class="entry-title">La fuerza en la debilidad</div>
-                            <div class="entry-preview">2 Corintios 12:9-10 me recordó que en mi debilidad, el poder de Dios se perfecciona. Cuando me siento incapaz, Él me fortalece.</div>
-                            <div class="entry-tags">
-                                <span class="entry-tag">debilidad</span>
-                                <span class="entry-tag">fortaleza</span>
-                                <span class="entry-tag">corintios</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="community-section">
-                        <h3>Peticiones de oración</h3>
-                        <p>Puedes compartir peticiones de oración de forma anónima:</p>
-                        
-                        <form id="prayerForm">
-                            <div class="input-group">
-                                <textarea class="input-field textarea-field" id="prayerRequest" placeholder="Escribe tu petición de oración aquí..." style="min-height: 100px;"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-info">
-                                <i class="fas fa-pray"></i> Enviar petición
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Vista de estadísticas -->
-                <div class="detailed-view" id="statsView" style="display: none;">
-                    <div class="section-title">
-                        <i class="fas fa-chart-line"></i> Mis Estadísticas
-                    </div>
-                    
-                    <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
-                        <div class="stat-card">
-                            <span class="stat-number" id="totalStudies">0</span>
-                            <span class="stat-label">Total estudios</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number" id="avgWeekly">0</span>
-                            <span class="stat-label">Por semana</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-number" id="streak">0</span>
-                            <span class="stat-label">Días seguidos</span>
-                        </div>
-                    </div>
-                    
-                    <div class="detail-content">
-                        <h3>Distribución por tipo</h3>
-                        <div id="typeChart" style="height: 200px; margin: 20px 0;">
-                            <!-- Gráfico se generará aquí -->
-                            <div style="display: flex; height: 100%; align-items: end; gap: 10px;">
-                                <div style="flex: 1; background: #4f46e5; height: 30%; display: flex; justify-content: center; align-items: start; padding-top: 10px; color: white; font-weight: bold;">Video</div>
-                                <div style="flex: 1; background: #10b981; height: 60%; display: flex; justify-content: center; align-items: start; padding-top: 10px; color: white; font-weight: bold;">Biblia</div>
-                                <div style="flex: 1; background: #f59e0b; height: 40%; display: flex; justify-content: center; align-items: start; padding-top: 10px; color: white; font-weight: bold;">Publicación</div>
-                                <div style="flex: 1; background: #3b82f6; height: 20%; display: flex; justify-content: center; align-items: start; padding-top: 10px; color: white; font-weight: bold;">Personal</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="detail-content">
-                        <h3>Evolución mensual</h3>
-                        <div id="timelineChart" style="height: 200px; margin: 20px 0;">
-                            <!-- Gráfico se generará aquí -->
-                            <div style="display: flex; height: 100%; align-items: end; gap: 8px; justify-content: space-between;">
-                                <div style="width: 8%; background: #4f46e5; height: 40%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 60%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 30%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 80%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 50%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 70%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 90%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 65%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 75%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 85%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 95%;"></div>
-                                <div style="width: 8%; background: #4f46e5; height: 100%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -1313,51 +773,7 @@
 
     <!-- Notificaciones -->
     <div class="notification" id="notification">
-        <i class="fas fa-check-circle"></i>
         <span id="notificationMessage"></span>
-    </div>
-
-    <!-- Modal para configuración -->
-    <div class="modal" id="settingsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Configuración</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="input-group">
-                <label class="input-label">Tema de la aplicación</label>
-                <select class="input-field" id="themeSelect">
-                    <option value="auto">Automático (según sistema)</option>
-                    <option value="light">Claro</option>
-                    <option value="dark">Oscuro</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label class="input-label">Tamaño de fuente</label>
-                <select class="input-field" id="fontSizeSelect">
-                    <option value="small">Pequeño</option>
-                    <option value="medium" selected>Mediano</option>
-                    <option value="large">Grande</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label class="input-label">Modo de contraste</label>
-                <select class="input-field" id="contrastSelect">
-                    <option value="normal">Normal</option>
-                    <option value="high">Alto contraste</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label class="input-label">Frecuencia de respaldo automático</label>
-                <select class="input-field" id="backupFrequency">
-                    <option value="never">Nunca</option>
-                    <option value="daily">Diariamente</option>
-                    <option value="weekly">Semanalmente</option>
-                    <option value="monthly">Mensualmente</option>
-                </select>
-            </div>
-            <button class="btn btn-success">Guardar configuración</button>
-        </div>
     </div>
 
     <script>
@@ -1366,28 +782,14 @@
                 this.entries = [];
                 this.currentEntry = null;
                 this.currentType = 'video';
-                this.settings = {
-                    theme: 'light',
-                    fontSize: 'medium',
-                    contrast: 'normal',
-                    dyslexia: false,
-                    readingMode: false,
-                    backupFrequency: 'weekly'
-                };
-                this.audioRecorder = null;
-                this.audioChunks = [];
-                this.isRecording = false;
                 this.init();
             }
 
             init() {
-                this.loadSettings();
                 this.loadEntriesFromStorage();
                 this.bindEvents();
                 this.updateStats();
                 this.showWelcomeOrEntries();
-                this.applySettings();
-                this.loadTagsFilter();
             }
 
             bindEvents() {
@@ -1409,115 +811,596 @@
                     this.searchEntries(e.target.value);
                 });
 
-                // Filtros
-                document.getElementById('filterType').addEventListener('change', (e) => {
-                    this.applyFilters();
-                });
-
-                document.getElementById('filterDate').addEventListener('change', (e) => {
-                    this.applyFilters();
-                });
-
-                document.getElementById('filterTags').addEventListener('change', (e) => {
-                    this.applyFilters();
-                });
-
                 // Botones de acción
                 document.getElementById('exportBtn').addEventListener('click', () => this.exportEntries());
                 document.getElementById('importBtn').addEventListener('click', () => this.importEntries());
                 document.getElementById('backupBtn').addEventListener('click', () => this.createBackup());
                 document.getElementById('clearAllBtn').addEventListener('click', () => this.clearAllEntries());
                 document.getElementById('floatingAddBtn').addEventListener('click', () => this.scrollToForm());
+            }
 
-                // Pestañas
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.addEventListener('click', (e) => {
-                        this.switchTab(e.target.dataset.tab);
+            selectStudyType(type) {
+                this.currentType = type;
+                
+                // Actualizar botones
+                document.querySelectorAll('.study-type-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-type="${type}"]`).classList.add('active');
+
+                // Mostrar/ocultar campos según el tipo
+                const urlGroup = document.getElementById('urlGroup');
+                const scriptureGroup = document.getElementById('scriptureGroup');
+                const urlInput = document.getElementById('studyUrl');
+                const scriptureInput = document.getElementById('scriptureRef');
+
+                if (type === 'bible') {
+                    urlGroup.style.display = 'none';
+                    scriptureGroup.style.display = 'block';
+                    urlInput.required = false;
+                    scriptureInput.required = true;
+                } else if (type === 'personal') {
+                    urlGroup.style.display = 'none';
+                    scriptureGroup.style.display = 'none';
+                    urlInput.required = false;
+                    scriptureInput.required = false;
+                } else {
+                    urlGroup.style.display = 'block';
+                    scriptureGroup.style.display = 'none';
+                    urlInput.required = true;
+                    scriptureInput.required = false;
+                }
+            }
+
+            addEntry() {
+                const formData = {
+                    id: Date.now(),
+                    type: this.currentType,
+                    title: document.getElementById('studyTitle').value.trim(),
+                    url: document.getElementById('studyUrl').value.trim(),
+                    scriptureRef: document.getElementById('scriptureRef').value.trim(),
+                    keyText: document.getElementById('keyText').value.trim(),
+                    personalReflection: document.getElementById('personalReflection').value.trim(),
+                    practicalApplication: document.getElementById('practicalApplication').value.trim(),
+                    tags: document.getElementById('studyTags').value.trim().split(',').map(tag => tag.trim()).filter(tag => tag),
+                    createdAt: new Date().toISOString(),
+                    lastModified: new Date().toISOString()
+                };
+
+                if (!formData.title || !formData.personalReflection) {
+                    this.showNotification('Por favor completa al menos el título y tu reflexión personal', 'error');
+                    return;
+                }
+
+                this.entries.unshift(formData);
+                this.saveEntriesToStorage();
+                this.renderEntries();
+                this.updateStats();
+                this.clearForm();
+                this.showWelcomeOrEntries();
+                
+                this.showNotification(`✨ Estudio "${formData.title}" guardado exitosamente!`);
+            }
+
+            clearForm() {
+                document.getElementById('studyForm').reset();
+                this.selectStudyType('video');
+            }
+
+            renderEntries(filteredEntries = null) {
+                const container = document.getElementById('entriesContainer');
+                const entries = filteredEntries || this.entries;
+
+                if (entries.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <h3>No hay estudios aún</h3>
+                            <p>¡Comienza agregando tu primer estudio espiritual!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = entries.map(entry => `
+                    <div class="entry-card" onclick="app.viewEntry(${entry.id})">
+                        <div class="entry-header">
+                            <div class="entry-type">${this.getTypeIcon(entry.type)} ${this.getTypeName(entry.type)}</div>
+                            <div class="entry-date">${this.formatDate(entry.createdAt)}</div>
+                        </div>
+                        <div class="entry-title">${entry.title}</div>
+                        <div class="entry-preview">${entry.personalReflection}</div>
+                        ${entry.tags.length > 0 ? `
+                            <div class="entry-tags">
+                                ${entry.tags.map(tag => `<span class="entry-tag">#${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+            }
+
+            viewEntry(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                this.currentEntry = entry;
+                this.showDetailedView(entry);
+            }
+
+            showDetailedView(entry) {
+                const detailView = document.getElementById('detailedView');
+                const entriesContainer = document.getElementById('entriesContainer');
+                const welcomeView = document.getElementById('welcomeView');
+
+                welcomeView.style.display = 'none';
+                entriesContainer.style.display = 'none';
+                detailView.classList.add('active');
+
+                detailView.innerHTML = `
+                    <div class="detail-header">
+                        <div class="detail-title">${entry.title}</div>
+                        <div class="detail-meta">
+                            <div class="entry-type">${this.getTypeIcon(entry.type)} ${this.getTypeName(entry.type)}</div>
+                            <div class="entry-date">📅 ${this.formatDate(entry.createdAt)}</div>
+                            ${entry.tags.length > 0 ? `
+                                <div class="entry-tags">
+                                    ${entry.tags.map(tag => `<span class="entry-tag">#${tag}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    ${entry.url ? `
+                        <div class="detail-section">
+                            <h3>🔗 Fuente</h3>
+                            <div class="detail-content">
+                                <a href="${entry.url}" target="_blank" style="color: #4f46e5; text-decoration: none; font-weight: 600;">
+                                    🚀 Abrir en JW.org
+                                </a>
+                                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary); word-break: break-all;">
+                                    ${entry.url}
+                                </p>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${entry.scriptureRef ? `
+                        <div class="detail-section">
+                            <h3>📖 Referencia Bíblica</h3>
+                            <div class="scripture-reference">
+                                ${entry.scriptureRef}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${entry.keyText ? `
+                        <div class="detail-section">
+                            <h3>💎 Texto Clave</h3>
+                            <div class="detail-content">
+                                <em>"${entry.keyText}"</em>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="detail-section">
+                        <h3>💭 Mi Reflexión Personal</h3>
+                        <div class="reflection-text">
+                            ${entry.personalReflection.replace(/\n/g, '<br>')}
+                        </div>
+                    </div>
+
+                    ${entry.practicalApplication ? `
+                        <div class="detail-section">
+                            <h3>🎯 Aplicación Práctica</h3>
+                            <div class="detail-content">
+                                ${entry.practicalApplication.replace(/\n/g, '<br>')}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary btn-small" onclick="app.backToList()">
+                            ← Volver a la lista
+                        </button>
+                        <button class="btn btn-success btn-small" onclick="app.editEntry(${entry.id})">
+                            ✏️ Editar
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="app.duplicateEntry(${entry.id})">
+                            📋 Duplicar
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="app.exportSingle(${entry.id})">
+                            📤 Exportar
+                        </button>
+                        <button class="btn btn-danger btn-small" onclick="app.deleteEntry(${entry.id})">
+                            🗑️ Eliminar
+                        </button>
+                    </div>
+                `;
+            }
+
+            backToList() {
+                document.getElementById('detailedView').classList.remove('active');
+                this.showWelcomeOrEntries();
+            }
+
+            editEntry(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                // Llenar el formulario con los datos existentes
+                this.selectStudyType(entry.type);
+                document.getElementById('studyTitle').value = entry.title;
+                document.getElementById('studyUrl').value = entry.url || '';
+                document.getElementById('scriptureRef').value = entry.scriptureRef || '';
+                document.getElementById('keyText').value = entry.keyText || '';
+                document.getElementById('personalReflection').value = entry.personalReflection;
+                document.getElementById('practicalApplication').value = entry.practicalApplication || '';
+                document.getElementById('studyTags').value = entry.tags.join(', ');
+
+                // Eliminar la entrada existente
+                this.entries = this.entries.filter(e => e.id !== id);
+                this.saveEntriesToStorage();
+                this.updateStats();
+                
+                // Volver al formulario
+                this.backToList();
+                this.scrollToForm();
+                
+                this.showNotification('📝 Estudio cargado para edición', 'warning');
+            }
+
+            duplicateEntry(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                const duplicatedEntry = {
+                    ...entry,
+                    id: Date.now(),
+                    title: `${entry.title} (Copia)`,
+                    createdAt: new Date().toISOString(),
+                    lastModified: new Date().toISOString()
+                };
+
+                this.entries.unshift(duplicatedEntry);
+                this.saveEntriesToStorage();
+                this.updateStats();
+                this.backToList();
+
+                this.showNotification(`📋 Estudio "${entry.title}" duplicado exitosamente`);
+            }
+
+            deleteEntry(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                if (confirm(`¿Estás seguro de que quieres eliminar "${entry.title}"?\n\nEsta acción no se puede deshacer.`)) {
+                    this.entries = this.entries.filter(e => e.id !== id);
+                    this.saveEntriesToStorage();
+                    this.updateStats();
+                    this.backToList();
+                    
+                    this.showNotification(`🗑️ Estudio "${entry.title}" eliminado`, 'error');
+                }
+            }
+
+            exportSingle(id) {
+                const entry = this.entries.find(e => e.id === id);
+                if (!entry) return;
+
+                const exportData = {
+                    metadata: {
+                        exportDate: new Date().toISOString(),
+                        version: "1.0",
+                        type: "single_entry"
+                    },
+                    entry: entry
+                };
+
+                this.downloadJson(exportData, `estudio-${entry.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`);
+                this.showNotification('📤 Estudio exportado exitosamente');
+            }
+
+            searchEntries(query) {
+                if (!query.trim()) {
+                    this.renderEntries();
+                    return;
+                }
+
+                const filtered = this.entries.filter(entry => 
+                    entry.title.toLowerCase().includes(query.toLowerCase()) ||
+                    entry.personalReflection.toLowerCase().includes(query.toLowerCase()) ||
+                    entry.keyText.toLowerCase().includes(query.toLowerCase()) ||
+                    entry.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
+                    entry.scriptureRef.toLowerCase().includes(query.toLowerCase())
+                );
+
+                this.renderEntries(filtered);
+            }
+
+            showWelcomeOrEntries() {
+                const welcomeView = document.getElementById('welcomeView');
+                const entriesContainer = document.getElementById('entriesContainer');
+                const detailView = document.getElementById('detailedView');
+
+                detailView.classList.remove('active');
+
+                if (this.entries.length === 0) {
+                    welcomeView.style.display = 'block';
+                    entriesContainer.style.display = 'none';
+                } else {
+                    welcomeView.style.display = 'none';
+                    entriesContainer.style.display = 'block';
+                    this.renderEntries();
+                }
+            }
+
+            updateStats() {
+                document.getElementById('totalEntries').textContent = this.entries.length;
+                
+                const currentMonth = new Date().getMonth();
+                const currentYear = new Date().getFullYear();
+                const thisMonthCount = this.entries.filter(entry => {
+                    const entryDate = new Date(entry.createdAt);
+                    return entryDate.getMonth() === currentMonth && entryDate.getFullYear() === currentYear;
+                }).length;
+                
+                document.getElementById('thisMonth').textContent = thisMonthCount;
+            }
+
+            createBackup() {
+                if (this.entries.length === 0) {
+                    this.showNotification('No hay estudios para respaldar', 'error');
+                    return;
+                }
+
+                const backupData = {
+                    metadata: {
+                        backupDate: new Date().toISOString(),
+                        version: "1.0",
+                        totalEntries: this.entries.length,
+                        appName: "Diario de Estudio Espiritual",
+                        backupType: "full_backup"
+                    },
+                    entries: this.entries
+                };
+
+                this.downloadJson(backupData, 'respaldo-diario-espiritual');
+                this.showNotification(`💾 Respaldo creado con ${this.entries.length} estudios`);
+            }
+
+            exportEntries() {
+                if (this.entries.length === 0) {
+                    this.showNotification('No hay estudios para exportar', 'error');
+                    return;
+                }
+
+                const exportData = {
+                    metadata: {
+                        exportDate: new Date().toISOString(),
+                        version: "1.0",
+                        totalEntries: this.entries.length,
+                        appName: "Diario de Estudio Espiritual"
+                    },
+                    entries: this.entries
+                };
+
+                this.downloadJson(exportData, 'mi-diario-espiritual');
+                this.showNotification(`📤 ${this.entries.length} estudios exportados exitosamente`);
+            }
+
+            importEntries() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const data = JSON.parse(e.target.result);
+                                let importedEntries = [];
+
+                                if (data.entries && Array.isArray(data.entries)) {
+                                    importedEntries = data.entries;
+                                } else if (data.entry) {
+                                    importedEntries = [data.entry];
+                                } else if (Array.isArray(data)) {
+                                    importedEntries = data;
+                                }
+
+                                if (importedEntries.length > 0) {
+                                    const confirmMsg = `¿Quieres importar ${importedEntries.length} estudio(s)?\n\nEsto se agregará a tus estudios existentes.`;
+                                    if (confirm(confirmMsg)) {
+                                        this.entries = [...importedEntries, ...this.entries];
+                                        this.saveEntriesToStorage();
+                                        this.updateStats();
+                                        this.showWelcomeOrEntries();
+                                        this.showNotification(`📥 ${importedEntries.length} estudio(s) importado(s) exitosamente`);
+                                    }
+                                } else {
+                                    throw new Error('No se encontraron estudios válidos');
+                                }
+                            } catch (error) {
+                                this.showNotification('Error al importar. Archivo no válido.', 'error');
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            clearAllEntries() {
+                if (this.entries.length === 0) {
+                    this.showNotification('No hay estudios para eliminar', 'error');
+                    return;
+                }
+
+                const confirmMsg = `¿Estás COMPLETAMENTE SEGURO de que quieres eliminar TODOS tus ${this.entries.length} estudios?\n\n⚠️ ESTA ACCIÓN NO SE PUEDE DESHACER ⚠️\n\nRecomendamos exportar primero como respaldo.`;
+                
+                if (confirm(confirmMsg)) {
+                    // Limpiar tanto la memoria como el localStorage
+                    this.entries = [];
+                    try {
+                        localStorage.removeItem('spiritualStudyApp');
+                        console.log('🗑️ Datos eliminados del localStorage');
+                    } catch (error) {
+                        console.error('Error al limpiar localStorage:', error);
+                    }
+                    
+                    this.updateStats();
+                    this.showWelcomeOrEntries();
+                    document.getElementById('searchInput').value = '';
+                    this.showNotification('🗑️ Todos los estudios han sido eliminados permanentemente', 'error');
+                }
+            }
+
+            scrollToForm() {
+                document.querySelector('.sidebar').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            downloadJson(data, filename) {
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${filename}-${new Date().getTime()}.json`;
+                link.click();
+                URL.revokeObjectURL(url);
+            }
+
+            saveEntriesToStorage() {
+                try {
+                    const data = {
+                        entries: this.entries,
+                        lastSaved: new Date().toISOString(),
+                        version: "1.0"
+                    };
+                    localStorage.setItem('spiritualStudyApp', JSON.stringify(data));
+                    console.log('✅ Datos guardados en localStorage:', this.entries.length, 'estudios');
+                } catch (error) {
+                    console.error('❌ Error al guardar en localStorage:', error);
+                    this.showNotification('Error al guardar datos localmente', 'error');
+                }
+            }
+
+            loadEntriesFromStorage() {
+                try {
+                    const savedData = localStorage.getItem('spiritualStudyApp');
+                    if (savedData) {
+                        const data = JSON.parse(savedData);
+                        if (data && data.entries && Array.isArray(data.entries)) {
+                            this.entries = data.entries;
+                            console.log('✅ Datos cargados desde localStorage:', this.entries.length, 'estudios');
+                            
+                            // Mostrar mensaje de bienvenida si hay datos guardados
+                            if (this.entries.length > 0) {
+                                setTimeout(() => {
+                                    this.showNotification(`📚 ${this.entries.length} estudios cargados desde tu almacenamiento local`);
+                                }, 1000);
+                            }
+                        } else {
+                            console.log('📝 No hay datos válidos en localStorage');
+                            this.entries = [];
+                        }
+                    } else {
+                        console.log('📝 No hay datos guardados en localStorage');
+                        this.entries = [];
+                    }
+                } catch (error) {
+                    console.error('❌ Error al cargar desde localStorage:', error);
+                    this.entries = [];
+                    this.showNotification('Error al cargar datos locales', 'warning');
+                }
+            }
+
+            getTypeIcon(type) {
+                const icons = {
+                    video: '🎬',
+                    publication: '📚',
+                    bible: '📖',
+                    personal: '💭'
+                };
+                return icons[type] || '📝';
+            }
+
+            getTypeName(type) {
+                const names = {
+                    video: 'Video',
+                    publication: 'Publicación',
+                    bible: 'Biblia',
+                    personal: 'Personal'
+                };
+                return names[type] || 'Estudio';
+            }
+
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                const now = new Date();
+                const diffTime = Math.abs(now - date);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                if (diffDays === 1) {
+                    return 'Hoy';
+                } else if (diffDays === 2) {
+                    return 'Ayer';
+                } else if (diffDays <= 7) {
+                    return `Hace ${diffDays - 1} días`;
+                } else {
+                    return date.toLocaleDateString('es-ES', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
                     });
-                });
-
-                // Formulario de oración
-                document.getElementById('prayerForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.submitPrayerRequest();
-                });
-
-                // Accesibilidad
-                document.getElementById('themeToggle').addEventListener('click', () => this.toggleTheme());
-                document.getElementById('fontSizeToggle').addEventListener('click', () => this.cycleFontSize());
-                document.getElementById('contrastToggle').addEventListener('click', () => this.toggleContrast());
-                document.getElementById('readingModeToggle').addEventListener('click', () => this.toggleReadingMode());
-
-                // Grabación de audio
-                document.getElementById('recordAudio').addEventListener('click', () => this.startRecording());
-                document.getElementById('stopRecording').addEventListener('click', () => this.stopRecording());
-
-                // Cerrar modal
-                document.querySelector('.close-modal').addEventListener('click', () => {
-                    document.getElementById('settingsModal').style.display = 'none';
-                });
-
-                // Cargar versículo del día
-                this.loadVerseOfTheDay();
-            }
-
-            // ... (resto del código de la clase con todas las mejoras implementadas)
-
-            // Métodos de accesibilidad
-            toggleTheme() {
-                this.settings.theme = this.settings.theme === 'light' ? 'dark' : 'light';
-                this.applySettings();
-                this.saveSettings();
-            }
-
-            cycleFontSize() {
-                const sizes = ['small', 'medium', 'large'];
-                const currentIndex = sizes.indexOf(this.settings.fontSize);
-                this.settings.fontSize = sizes[(currentIndex + 1) % sizes.length];
-                this.applySettings();
-                this.saveSettings();
-            }
-
-            toggleContrast() {
-                this.settings.contrast = this.settings.contrast === 'normal' ? 'high' : 'normal';
-                this.applySettings();
-                this.saveSettings();
-            }
-
-            toggleReadingMode() {
-                this.settings.readingMode = !this.settings.readingMode;
-                document.body.classList.toggle('reading-mode', this.settings.readingMode);
-                this.saveSettings();
-            }
-
-            applySettings() {
-                // Aplicar tema
-                document.body.setAttribute('data-theme', this.settings.theme);
-                
-                // Aplicar tamaño de fuente
-                document.body.setAttribute('data-font-size', this.settings.fontSize);
-                
-                // Aplicar contraste
-                if (this.settings.contrast === 'high') {
-                    document.body.classList.add('high-contrast');
-                } else {
-                    document.body.classList.remove('high-contrast');
-                }
-                
-                // Aplicar modo dislexia
-                if (this.settings.dyslexia) {
-                    document.body.classList.add('dyslexia-mode');
-                } else {
-                    document.body.classList.remove('dyslexia-mode');
                 }
             }
 
-            // ... (más métodos para todas las funcionalidades implementadas)
+            showNotification(message, type = 'success') {
+                const notification = document.getElementById('notification');
+                const messageEl = document.getElementById('notificationMessage');
+                
+                messageEl.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
 
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 4000);
+            }
         }
 
         // Inicializar la aplicación
         const app = new SpiritualStudyApp();
+
+        // Agregar algunos estudios de ejemplo si no hay datos
+        if (app.entries.length === 0) {
+            // Comentar o eliminar esta sección después de las primeras pruebas
+            const exampleEntries = [
+                {
+                    id: Date.now() - 1000,
+                    type: 'bible',
+                    title: 'La importancia de la paciencia',
+                    scriptureRef: 'Santiago 1:2-4',
+                    keyText: 'Considérenlo todo gozo, hermanos míos, cuando se encuentren con diversas pruebas, sabiendo que esta cualidad probada de su fe obra aguante.',
+                    personalReflection: 'Este texto me ayuda a entender que las pruebas no son algo negativo, sino oportunidades para crecer espiritualmente. La paciencia no es solo esperar, sino mantener una actitud positiva durante las dificultades.',
+                    practicalApplication: 'Cuando enfrente situaciones estresantes esta semana, voy a recordar este texto y buscar la oportunidad de aprendizaje en lugar de frustrarme.',
+                    tags: ['paciencia', 'pruebas', 'crecimiento', 'fe'],
+                    createdAt: new Date(Date.now() - 86400000).toISOString(),
+                    lastModified: new Date(Date.now() - 86400000).toISOString()
+                }
+            ];
+            
+            // Descomenta las siguientes líneas si quieres ver el ejemplo
+            // app.entries = exampleEntries;
+            // app.saveEntriesToStorage();
+            // app.updateStats();
+            // app.showWelcomeOrEntries();
+        }
     </script>
 </body>
 </html>
